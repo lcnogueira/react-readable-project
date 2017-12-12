@@ -4,7 +4,9 @@ class Category extends Component {
 
     render(){
         return (
-            <div>Category</div>
+            <div>
+                <h1>Category</h1>
+            </div>
         );
     }
 
