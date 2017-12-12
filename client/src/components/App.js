@@ -10,6 +10,8 @@ class App extends Component {
     return (
       <div className="App">
 
+        <Menu />
+
         <Route exact path="/" component={Home} />
 
         <Route path="/category" component={Category} />
