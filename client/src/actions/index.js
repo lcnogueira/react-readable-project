@@ -1,8 +1,8 @@
-export const LOAD_POSTS = 'LOAD_POSTS';
+import * as types from './types';
 
-export function loadPosts({posts}){
+export function fetchPosts({posts}){
     return {
-        type: LOAD_POSTS,
+        type: FETCH_POSTS,
         posts,
     };
 };

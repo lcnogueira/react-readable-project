@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
 import {
-    LOAD_POSTS,
-} from '../actions';
+    FETCH_POSTS,
+} from '../actions/types';
 
 const initialPosts = {
 
@@ -13,7 +13,7 @@ function posts(state = initialPosts, action) {
     const{posts} = action;
 
     switch (action.type) {
-        case LOAD_POSTS:
+        case FETCH_POSTS:
             return {
                 posts
             };
