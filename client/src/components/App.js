@@ -5,9 +5,18 @@ import Home from './Home';
 import Category from './Category';
 import Menu from './Menu';
 import { connect } from 'react-redux';
+import { fetchCategories } from '../actions';
 
 class App extends Component {
+
+  componentDidMount(){
+    //Dispatch the fetchCategories action before mounting the component
+    this.props.fetchCategories();
+  }
+
   render() {
+
+    const {categories} = this.props;
 
     return (
       <div className="App">
@@ -24,9 +33,17 @@ class App extends Component {
 }
 
 function mapStateToProps (state) {
+    const {categories} = state;
+
     return {
-      
+      categories: categories.all
     }
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch){
+  return {
+    fetchCategories: () => dispatch(fetchCategories()),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
