@@ -4,9 +4,11 @@ import '../styles/App.css';
 import Home from './Home';
 import Category from './Category';
 import Menu from './Menu';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
+
     return (
       <div className="App">
 
@@ -21,4 +23,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps (state) {
+    return {
+      
+    }
+}
+
+export default connect(mapStateToProps)(App);
