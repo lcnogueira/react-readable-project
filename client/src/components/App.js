@@ -17,7 +17,6 @@ class App extends Component {
   render() {
 
     const {categories} = this.props;
-    console.log(this.props);
 
     return (
       <div className="App">
