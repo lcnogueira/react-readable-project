@@ -3,9 +3,9 @@ import { Route } from 'react-router-dom';
 import '../styles/App.css';
 import Home from './Home';
 import Category from './Category';
-import Menu from './Menu';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
 
@@ -17,11 +17,23 @@ class App extends Component {
   render() {
 
     const {categories} = this.props;
+    console.log(this.props);
 
     return (
       <div className="App">
 
-        <Menu />
+          <div id="menu">
+              <ol>
+                  <Link to="/">
+                      <li>Home</li>
+                  </Link>
+                  {categories && categories.map((category) => (
+                      <Link to={category.path} key={category.name}>
+                          <li>{category.name}</li>
+                      </Link>
+                  ))}
+              </ol>
+           </div>
 
         <Route exact path="/" component={Home} />
 
