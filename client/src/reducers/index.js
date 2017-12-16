@@ -7,12 +7,11 @@ import {
 
 function posts(state = {}, action) {
 
-    const{posts} = action;
-
     switch (action.type) {
         case FETCH_POSTS:
             return {
-                posts
+                ...state,
+                allPosts: action.posts
             };
         default:
             return state;
@@ -25,7 +24,7 @@ function categories(state = {}, action){
         case FETCH_CATEGORIES:
             return {
                 ...state,
-                all: action.categories.categories
+                allCategories: action.categories.categories
             };
 
         default:

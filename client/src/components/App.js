@@ -50,14 +50,14 @@ function mapStateToProps(state) {
   const { categories } = state;
 
   return {
-    categories: categories.all
+    categories: categories.allCategories
   }
-}
+};
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
