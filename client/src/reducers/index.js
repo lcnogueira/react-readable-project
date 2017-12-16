@@ -1,14 +1,10 @@
 import { combineReducers } from 'redux';
-
-import {
-    FETCH_POSTS,
-    FETCH_CATEGORIES
-} from '../actions/types';
+import * as types from '../actions/types';
 
 function posts(state = {}, action) {
 
     switch (action.type) {
-        case FETCH_POSTS:
+        case types.FETCH_POSTS:
             return {
                 ...state,
                 allPosts: action.posts
@@ -21,7 +17,7 @@ function posts(state = {}, action) {
 function categories(state = {}, action){
     switch(action.type){
 
-        case FETCH_CATEGORIES:
+        case types.FETCH_CATEGORIES:
             return {
                 ...state,
                 allCategories: action.categories.categories

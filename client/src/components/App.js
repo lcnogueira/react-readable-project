@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, Link } from 'react-router-dom';
 import '../styles/App.css';
 import Home from './Home';
 import Category from './Category';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions';
-import { Link } from 'react-router-dom';
 
 class App extends Component {
 

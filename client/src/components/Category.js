@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions';
 
 class Category extends Component {
+
+    componentDidMount(){
+        this.props.fetchPosts();
+    }
 
     render(){
 
@@ -15,4 +21,18 @@ class Category extends Component {
 
 }
 
-export default Category;
+function mapStateToProps(state){
+    const{ posts } = state;
+    
+    return{
+       posts: posts.allPosts
+    } 
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        fetchPosts: () => dispatch(fetchPosts('redux')),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
