@@ -25,7 +25,6 @@ class Category extends Component {
 
         const { category } = this.props.match.params;
         const { posts } = this.props;
-        console.log('posts->',posts);
 
         return (
             <Container>
