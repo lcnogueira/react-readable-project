@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostsByCategory } from '../actions';
 import PostList from './PostList';
+import { Header, Container } from 'semantic-ui-react';
+import { capitalize } from '../utils/helper';
 
 class Category extends Component {
 
@@ -26,10 +28,10 @@ class Category extends Component {
         console.log('posts->',posts);
 
         return (
-            <div>
-                <h1>{category}</h1>
+            <Container>
+                <Header as="h1" textAlign="center">{capitalize(category)}</Header>
                 <PostList posts={posts} />
-            </div>
+            </Container>
         );
     }
 

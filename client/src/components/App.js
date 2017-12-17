@@ -5,12 +5,16 @@ import Home from './Home';
 import Category from './Category';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions';
+import { Container, Menu, Icon } from 'semantic-ui-react';
+import { capitalize } from '../utils/helper';
+
 
 class App extends Component {
 
   componentDidMount() {
-    //Dispatch the fetchCategories action before mounting the component
-    this.props.fetchCategories();
+    //If there is no categories props, dispatch the fetchCategories action before mounting the component
+    if(!this.props.categories)
+      this.props.fetchCategories();
   }
 
   render() {
@@ -19,26 +23,30 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <div className="App">
 
-          <div id="menu">
-            <ol>
+        <Container >
+
+          <Menu inverted={true} fluid={true} size="massive" stackable={true}>
+            <Menu.Item>
+              <Icon name='home'/>
               <Link to="/">
-                <li>Home</li>
+                Home
               </Link>
-              {categories && categories.map((category) => (
-                <Link to={category.path} key={category.name}>
-                  <li>{category.name}</li>
+            </Menu.Item>
+            {categories && categories.map((category) => (
+              <Menu.Item key={category.name}>
+                <Link to={category.path}>
+                  {capitalize(category.name)}
                 </Link>
+              </Menu.Item>
               ))}
-            </ol>
-          </div>
-
+          </Menu>
+            
           <Route exact path="/" component={Home} />
 
           <Route path="/:category" component={Category} />
 
-        </div>
+        </Container>
 
       </BrowserRouter>
     );

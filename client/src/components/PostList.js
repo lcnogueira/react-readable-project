@@ -1,25 +1,25 @@
 import React from 'react';
+import { List, Container } from 'semantic-ui-react';
 
 const PostList = (props) => {
 
     const { posts } = props;
     return (
-        <div id="postlist">
-            <h2>Posts</h2>
-            <ol>
+        <Container>
+            <List size="huge" verticalAlign="middle" inverted={true}>
                 {posts && posts.map((post) => (
-                    <li key={post.id}>
-                        <div id="post">
-                            <div id="post-title">{post.title}</div>
-                            <div id="post-date">Date: {post.timestamp}</div>
-                            <div id="post-author">Author: {post.author}</div>
-                            <div id="post-votescore">Vote score: {post.voteScore}</div>
-                            <div id="post-comments">Comments: {post.commentCount}</div>
-                        </div>
-                    </li>
+                    <List.Item key={post.id} >
+                        <List>
+                            <List.Item icon='talk' content={post.title} />
+                            <List.Item icon='checked calendar' content={post.timestamp} />
+                            <List.Item icon='user outline' content={post.author} />
+                            <List.Item icon= {post.voteScore>=0?'thumbs up':'thumbs down'} content={post.voteScore} />
+                            <List.Item icon='commenting outline' content={post.commentCount>0 ? post.commentCount : '0'} />
+                        </List>
+                    </List.Item>
                 ))}
-            </ol>
-        </div>
+            </List>
+        </Container>
     );
 };
 
