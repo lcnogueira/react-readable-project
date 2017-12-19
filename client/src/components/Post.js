@@ -3,13 +3,22 @@ import { formatDate } from '../utils/helper';
 import { List, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { fetchCommentsByPost } from '../actions/index';
+import CommentList from './CommentList';
 
 class Post extends Component {
+
+    constructor(){
+        super();
+        this.state = {
+            showComments: false
+        }
+    };
 
     fetchComments = () => {
         const { post } = this.props;
         this.props.fetchCommentsByPost(post.id);
-    }
+        this.setState({showComments: !this.state.showComments});
+    };
 
     render() {
         const { post, comments } = this.props;
@@ -31,6 +40,7 @@ class Post extends Component {
                     <Icon link name='edit' />
                     <Icon link name='trash' />
                 </List.Item>
+                {this.state.showComments && comments && <CommentList comments={comments} postId={post.id}/>}
             </List>
         );
     }

@@ -10,7 +10,7 @@ const PostList = (props) => {
             <List size="huge" verticalAlign="middle">
                 {posts && posts.map((post) => (
                     <List.Item key={post.id} >
-                        <Post post={post} key={post.id}/>
+                        <Post post={post}/>
                     </List.Item>
                 ))}
             </List>
