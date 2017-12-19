@@ -14,9 +14,8 @@ function posts(state = {}, action) {
     }
 };
 
-function categories(state = {}, action){
-    switch(action.type){
-
+function categories(state = {}, action) {
+    switch (action.type) {
         case types.FETCH_CATEGORIES:
             return {
                 ...state,
@@ -24,11 +23,25 @@ function categories(state = {}, action){
             };
 
         default:
-            return state
+            return state;
     }
-}
+};
+
+function comments(state = {}, action) {
+    switch (action.type) {
+        case types.FETCH_COMMENTS:
+            return {
+                ...state,
+                allComments: action.comments
+            }
+        default:
+            return state;
+    }
+
+};
 
 export default combineReducers({
     posts,
-    categories
+    categories,
+    comments
 });

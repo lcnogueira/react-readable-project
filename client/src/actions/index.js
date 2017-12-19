@@ -36,3 +36,15 @@ export function fetchCategories() {
     };
 };
 
+/* Comments actions */
+export function fetchCommentsByPost(postId){
+    return dispatch => {
+        Api.getCommentsByPost(postId).then ( comments =>
+            dispatch({
+                type: types.FETCH_COMMENTS,
+                comments
+            })
+        );
+    };
+};
+
