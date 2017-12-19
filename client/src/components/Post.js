@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { formatDate } from '../utils/helper';
 import { List, Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 class Post extends Component {
 
@@ -29,4 +30,12 @@ class Post extends Component {
 
 }
 
-export default Post;
+function mapStateToProps(state){
+
+}
+
+function mapDispatchToProps(dispatch){
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
