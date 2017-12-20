@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 import PostList from './PostList';
-import { Header, Container } from 'semantic-ui-react';
 
 class Home extends Component {
 
@@ -15,10 +14,12 @@ class Home extends Component {
     const { posts } = this.props;
 
     return (
-      <Container>
-        <Header as="h1" textAlign="center">Home</Header>
+      <main>
+        <header>
+          <h1>Home</h1>
+        </header>
         <PostList posts={posts} />
-      </Container>
+      </main>
     );
   }
 }

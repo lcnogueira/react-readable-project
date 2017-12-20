@@ -1,20 +1,19 @@
 import React from 'react';
-import { List, Container } from 'semantic-ui-react';
 import Post from './Post';
 
 const PostList = (props) => {
 
     const { posts } = props;
     return (
-        <Container>
-            <List size="huge" verticalAlign="middle">
+        <div>
+            <ol style={{listStyle: 'none'}}>
                 {posts && posts.map((post) => (
-                    <List.Item key={post.id} >
+                    <li key={post.id} >
                         <Post post={post}/>
-                    </List.Item>
+                    </li>
                 ))}
-            </List>
-        </Container>
+            </ol>
+        </div>
     );
 };
 

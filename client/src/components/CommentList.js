@@ -1,19 +1,18 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
 
 const CommentList = (props) => {
 
     const { comments, postId } = props;
     return (
-        <List.Item>
-            <List size="tiny" verticalAlign="middle">
+        <div>
+            <ol>
                 {comments && comments.filter((comment) => comment.parentId === postId).map((comment) => (
-                    <List.Item key={comment.id}>
+                    <li key={comment.id}>
                         {comment.body}
-                    </List.Item>
+                    </li>
                 ))}
-            </List>
-        </List.Item>
+            </ol>
+        </div>
     );
 };
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { formatDate } from '../utils/helper';
-import { List, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { fetchCommentsByPost } from '../actions/index';
 import CommentList from './CommentList';
@@ -24,24 +23,16 @@ class Post extends Component {
         const { post, comments } = this.props;
 
         return (
-            <List size='large'>
-                <List.Item icon='talk' content={post.title} />
-                <List.Item
-                    icon='info circle'
-                    content={formatDate(post.timestamp) + ' - Author: ' + post.author + ' - Comments: ' + post.commentCount}
-                />
-                <List.Item>
-                    <Icon link name='thumbs up' />
-                    {post.voteScore}
-                    <Icon link name='thumbs down' />
-                </List.Item>
-                <List.Item>
-                    <Icon link name='comments' onClick={this.fetchComments} />
-                    <Icon link name='edit' />
-                    <Icon link name='trash' />
-                </List.Item>
+            <ol style={{listStyle: 'none'}}>
+                <li>{post.title}</li>
+                <li>Date: {formatDate(post.timestamp) + ' - Author: ' + post.author + ' - Comments: ' + post.commentCount}</li>
+                <li>Vote score: {post.voteScore} </li>
+                <li style={{display: 'block-inline'}}>
+                    <button onClick={this.fetchComments}>Comments</button>
+                    <button>Deletar</button>
+                </li>
                 {this.state.showComments && comments && <CommentList comments={comments} postId={post.id}/>}
-            </List>
+            </ol>
         );
     }
 
