@@ -27,10 +27,7 @@ class Category extends Component {
 
         return (
             <main>
-                <header>
-                  <h1>{capitalize(category)}</h1>
-                </header>
-                <PostList posts={posts} />
+                <PostList subheader={capitalize(category)} posts={posts} />
             </main>
         );
     }

@@ -15,10 +15,7 @@ class Home extends Component {
 
     return (
       <main>
-        <header>
-          <h1>Home</h1>
-        </header>
-        <PostList posts={posts} />
+        <PostList subheader='Home' posts={posts} />
       </main>
     );
   }

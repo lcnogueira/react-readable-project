@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { formatDate } from '../utils/helper';
 import { connect } from 'react-redux';
 import { fetchCommentsByPost } from '../actions/index';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
+import { IconButton } from 'material-ui';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Edit from 'material-ui/svg-icons/image/edit';
+import SocialMood from 'material-ui/svg-icons/social/mood';
+import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
+import CommunicationComment from 'material-ui/svg-icons/communication/comment';
 import CommentList from './CommentList';
+
 
 class Post extends Component {
 
@@ -11,28 +19,49 @@ class Post extends Component {
         this.state = {
             showComments: false
         }
-    };
+    }
 
     fetchComments = () => {
         const { post } = this.props;
-        this.props.fetchCommentsByPost(post.id);
         this.setState({showComments: !this.state.showComments});
+        this.props.fetchCommentsByPost(post.id);
+
     };
 
     render() {
         const { post, comments } = this.props;
 
         return (
-            <ol style={{listStyle: 'none'}}>
-                <li>{post.title}</li>
-                <li>Date: {formatDate(post.timestamp) + ' - Author: ' + post.author + ' - Comments: ' + post.commentCount}</li>
-                <li>Vote score: {post.voteScore} </li>
-                <li style={{display: 'block-inline'}}>
-                    <button onClick={this.fetchComments}>Comments</button>
-                    <button>Deletar</button>
-                </li>
-                {this.state.showComments && comments && <CommentList comments={comments} postId={post.id}/>}
-            </ol>
+            <Card>
+                <CardTitle 
+                    title={post.title} 
+                    subtitle={'Date: ' + formatDate(post.timestamp) + ' - Author: ' + post.author + ' - Comments: ' + post.commentCount} 
+                />
+                <CardText>
+                    Vote Score: {post.voteScore}
+                </CardText>
+                <CardActions>
+                    <IconButton tooltip='Edit'>
+                        <Edit />
+                    </IconButton>
+                    <IconButton tooltip='Delete'>
+                        <Delete />
+                    </IconButton>
+                    <IconButton tooltip='Vote Up'>
+                        <SocialMood />
+                    </IconButton>
+                    <IconButton tooltip='Vote Down'>
+                        <SocialMoodBad />
+                    </IconButton>
+                    <IconButton tooltip='Comments' onClick={this.fetchComments}>
+                        <CommunicationComment />
+                    </IconButton>
+                </CardActions>
+                <CardText>
+                    {this.state.showComments && comments && <CommentList comments={comments} postId={post.id}/>}
+                </CardText>
+
+            </Card>
         );
     }
 

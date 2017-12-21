@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './reducers';
 import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,7 +20,9 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
+        <MuiThemeProvider>
             <App />
+        </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
 );

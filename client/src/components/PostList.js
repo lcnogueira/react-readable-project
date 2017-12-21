@@ -1,19 +1,23 @@
 import React from 'react';
 import Post from './Post';
+import List, { ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 const PostList = (props) => {
 
-    const { posts } = props;
+    const { posts, subheader } = props;
+    
     return (
-        <div>
-            <ol style={{listStyle: 'none'}}>
-                {posts && posts.map((post) => (
-                    <li key={post.id} >
-                        <Post post={post}/>
-                    </li>
-                ))}
-            </ol>
-        </div>
+        <List>
+            <Subheader style={{textAlign: 'center', fontSize: '2em'}}>{subheader}</Subheader>
+            {posts && posts.map( (post) => (
+                <ListItem 
+                    key={post.id}
+                >
+                    <Post post={post}/>
+                </ListItem>
+            ))}
+        </List>            
     );
 };
 
