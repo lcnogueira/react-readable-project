@@ -10,7 +10,7 @@ const PostList = (props) => {
     return (
         <List>
             <Subheader style={{textAlign: 'center', fontSize: '2em'}}>{subheader}</Subheader>
-            {posts && posts.map( (post) => (
+            {posts && posts.length > 0 && posts.map( (post) => (
                 <ListItem key={post.id}>
                     <Post post={post}/>
                 </ListItem>
