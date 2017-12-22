@@ -9,6 +9,7 @@ import { capitalize } from '../utils/helper';
 import { AppBar, MenuItem, Drawer } from 'material-ui';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ContentFilterList from 'material-ui/svg-icons/content/filter-list';
+import PostDetails from './PostDetails';
 
 class App extends Component {
 
@@ -51,7 +52,7 @@ class App extends Component {
                 leftIcon={<ContentFilterList />}
                 key={category.name}
                 onClick={this.toggleMenu}
-                containerElement={<Link to={category.path} />}
+                containerElement={<Link to={`/${category.path}`} />}
                 primaryText={capitalize(category.name)}
               />
             ))}
@@ -59,7 +60,11 @@ class App extends Component {
 
           <Route exact path="/" component={Home} />
 
-          <Route path="/:category" component={Category} />
+          <Route exact path="/:category" component={Category} />
+
+          <Route path="/:category/:postId" component={PostDetails} />
+
+          {/* <Route path="/post/edit/:postId" component={PostDetails} /> */}
 
         </div>
       </BrowserRouter>

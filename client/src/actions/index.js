@@ -24,6 +24,18 @@ export function fetchPostsByCategory(category){
     };
 };
 
+export function fetchPostById(id){
+    return dispatch => {
+        Api.getPostById(id).then( posts => 
+            dispatch({
+                type: types.FETCH_POSTS,
+                posts
+            })
+        
+        )
+    }
+}
+
 /* Category actions */
 export function fetchCategories() {
     return dispatch => {

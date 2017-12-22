@@ -11,9 +11,7 @@ const PostList = (props) => {
         <List>
             <Subheader style={{textAlign: 'center', fontSize: '2em'}}>{subheader}</Subheader>
             {posts && posts.map( (post) => (
-                <ListItem 
-                    key={post.id}
-                >
+                <ListItem key={post.id}>
                     <Post post={post}/>
                 </ListItem>
             ))}
