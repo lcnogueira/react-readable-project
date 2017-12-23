@@ -10,6 +10,15 @@ import SocialMood from 'material-ui/svg-icons/social/mood';
 import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 import CommentList from './CommentList';
 import Subheader from 'material-ui/Subheader';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import { Link } from 'react-router-dom';
+
+const floatButtonStyle = {
+    position: 'absolute',
+    left: 25,
+    top: 70,
+};
 
 class PostDetails extends Component {
 
@@ -22,9 +31,18 @@ class PostDetails extends Component {
     render() {
 
         const { post, comments } = this.props;
+        const { category } = this.props.match.params;
 
         return (
             <div>
+                <FloatingActionButton 
+                    mini={true}
+                    tooltip={'back'} 
+                    style={floatButtonStyle} 
+                    containerElement={<Link to={`/${category}`} />}
+                >
+                    <NavigationArrowBack />
+                </FloatingActionButton> 
                 <Subheader style={{textAlign: 'center', fontSize: '2em'}}>Post Details</Subheader>
                 {post && (
                     <Card style={{ padding: 10, margin: 10 }}>
