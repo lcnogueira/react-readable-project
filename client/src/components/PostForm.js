@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Card, TextField, Subheader, SelectField, MenuItem } from 'material-ui';
+import { Card, TextField, SelectField, MenuItem } from 'material-ui';
 import { connect } from 'react-redux';
 import { capitalize } from '../utils/helper';
 import { SubmitButton, CancelButton } from './utils/PostButtons';
 import { Redirect } from 'react-router-dom';
 import { addPost } from '../actions';
 import uuid from 'uuid';
+import Title from './utils/Title';
 
 class PostForm extends Component{
 
@@ -75,7 +76,7 @@ class PostForm extends Component{
 
         return (
             <div>
-                <Subheader style={{textAlign: 'center', fontSize: '2em'}}>New Post</Subheader>
+                <Title title='New Post'/>
                 <Card style={{ padding: 10, margin: 'auto', maxWidth: '70%' }}>
                     <form> 
                         <TextField

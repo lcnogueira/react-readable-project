@@ -3,7 +3,7 @@ import { fetchCommentsByPost, fetchPostById } from '../actions/index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import { IconButton, Subheader, FloatingActionButton } from 'material-ui';
+import { IconButton, FloatingActionButton } from 'material-ui';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
@@ -11,7 +11,7 @@ import SocialMood from 'material-ui/svg-icons/social/mood';
 import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 import CommentList from './CommentList';
 import { formatDate } from '../utils/helper';
-
+import Title from './utils/Title';
 
 const floatButtonStyle = {
     position: 'absolute',
@@ -41,7 +41,7 @@ class PostDetails extends Component {
                 >
                     <NavigationArrowBack />
                 </FloatingActionButton> 
-                <Subheader style={{textAlign: 'center', fontSize: '2em'}}>Post Details</Subheader>
+                <Title title='Post Details'/>
                 {post && (
                     <Card style={{ padding: 10, margin: 10 }}>
                         <CardTitle
