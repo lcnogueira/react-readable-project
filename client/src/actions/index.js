@@ -31,10 +31,20 @@ export function fetchPostById(id){
                 type: types.FETCH_POSTS,
                 posts
             })
-        
-        )
-    }
-}
+        );
+    };
+};
+
+export function addPost(post){
+    return dispatch => {
+        Api.addPost(post).then ( newPost =>
+            dispatch({
+                type: types.ADD_POST,
+                newPost
+            })
+        );
+    };
+};
 
 /* Category actions */
 export function fetchCategories() {

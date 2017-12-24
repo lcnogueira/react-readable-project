@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Link } from 'react-router-dom';
+import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 import '../styles/App.css';
 import Home from './Home';
 import Category from './Category';
@@ -10,6 +10,7 @@ import { AppBar, MenuItem, Drawer } from 'material-ui';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ContentFilterList from 'material-ui/svg-icons/content/filter-list';
 import PostDetails from './PostDetails';
+import PostForm from './PostForm';
 
 class App extends Component {
 
@@ -58,13 +59,18 @@ class App extends Component {
             ))}
           </Drawer>
 
-          <Route exact path="/" component={Home} />
+          <main>
 
-          <Route exact path="/:category" component={Category} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/:category" component={Category} />
 
-          <Route path="/:category/:postId" component={PostDetails} />
+            <Switch>
+              <Route path="/post/new" component={PostForm} />
+              <Route path="/:category/:postId" component={PostDetails} />
+              {/* <Route path="/post/edit/:postId" component={PostDetails} /> */}
+            </Switch>
 
-          {/* <Route path="/post/edit/:postId" component={PostDetails} /> */}
+          </main>
 
         </div>
       </BrowserRouter>

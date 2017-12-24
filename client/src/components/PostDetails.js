@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { fetchCommentsByPost, fetchPostById } from '../actions/index';
 import { connect } from 'react-redux';
-import { formatDate } from '../utils/helper';
+import { Link } from 'react-router-dom';
 import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import { IconButton } from 'material-ui';
+import { IconButton, Subheader, FloatingActionButton } from 'material-ui';
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
 import SocialMood from 'material-ui/svg-icons/social/mood';
 import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 import CommentList from './CommentList';
-import Subheader from 'material-ui/Subheader';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import { Link } from 'react-router-dom';
+import { formatDate } from '../utils/helper';
+
 
 const floatButtonStyle = {
     position: 'absolute',
@@ -36,8 +35,7 @@ class PostDetails extends Component {
         return (
             <div>
                 <FloatingActionButton 
-                    mini={true}
-                    tooltip={'back'} 
+                    mini
                     style={floatButtonStyle} 
                     containerElement={<Link to={`/${category}`} />}
                 >

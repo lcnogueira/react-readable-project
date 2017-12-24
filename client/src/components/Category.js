@@ -26,9 +26,7 @@ class Category extends Component {
         const { posts } = this.props;
 
         return (
-            <main>
-                <PostList subheader={capitalize(category)} posts={posts} />
-            </main>
+            <PostList subheader={capitalize(category)} posts={posts} />
         );
     }
 

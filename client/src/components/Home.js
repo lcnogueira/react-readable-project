@@ -14,9 +14,7 @@ class Home extends Component {
     const { posts } = this.props;
 
     return (
-      <main>
         <PostList subheader='Home' posts={posts} />
-      </main>
     );
   }
 }

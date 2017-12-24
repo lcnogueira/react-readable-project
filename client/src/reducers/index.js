@@ -9,6 +9,11 @@ function posts(state = {}, action) {
                 ...state,
                 allPosts: action.posts
             };
+        case types.ADD_POST:
+            return{
+                ...state, 
+                newPost: action.newPost
+            }
         default:
             return state;
     }
