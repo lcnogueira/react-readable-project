@@ -26,10 +26,10 @@ export function fetchPostsByCategory(category){
 
 export function fetchPostById(id){
     return dispatch => {
-        Api.getPostById(id).then( posts => 
+        Api.getPostById(id).then( post => 
             dispatch({
-                type: types.FETCH_POSTS,
-                posts
+                type: types.FETCH_CURRENT_POST,
+                post
             })
         );
     };
@@ -45,6 +45,18 @@ export function addPost(post){
         );
     };
 };
+
+export function updatePost(post){
+    return dispatch => {
+        Api.updatePost(post).then( newPost => 
+            dispatch({
+              type: types.UPDATE_POST,
+              newPost 
+            })
+        );
+    };
+};
+
 
 /* Category actions */
 export function fetchCategories() {

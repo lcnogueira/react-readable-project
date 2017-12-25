@@ -51,7 +51,7 @@ class PostDetails extends Component {
                         <CardText> {post.body} </CardText>
                         <CardText> Vote Score: {post.voteScore} </CardText>
                         <CardActions>
-                            <IconButton tooltip='Edit'> <Edit /> </IconButton>
+                            <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
                             <IconButton tooltip='Delete'> <Delete /> </IconButton>
                             <IconButton tooltip='Vote Up'> <SocialMood /> </IconButton>
                             <IconButton tooltip='Vote Down'> <SocialMoodBad /> </IconButton>
@@ -76,8 +76,9 @@ class PostDetails extends Component {
 
 function mapStateToProps(state) {
     const { comments, posts } = state;
+
     return {
-        post: posts.allPosts,
+        post: posts.current,
         comments: comments.allComments,
     }
 };

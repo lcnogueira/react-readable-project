@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPostsByCategory } from '../actions';
+// import { fetchPostsByCategory } from '../actions';
+import { fetchPosts } from '../actions';
 import PostList from './PostList';
 import { capitalize } from '../utils/helper';
 
 class Category extends Component {
 
     componentDidMount() {
-        const { category } = this.props.match.params;
-        this.props.fetchPostsByCategory(category);
+        // const { category } = this.props.match.params;
+        this.props.fetchPosts();
+        // this.props.fetchPostsByCategory(category);
     }
 
     //Compare if the previous category is different from the nextCategory. If it is, fetch posts by category
@@ -16,7 +18,8 @@ class Category extends Component {
         const { category } = this.props.match.params;
         const nextCategory = nextProps.match.params.category;
         if (category !== nextCategory)
-            this.props.fetchPostsByCategory(nextCategory);
+            this.props.fetchPosts();
+            // this.props.fetchPostsByCategory(nextCategory);
 
     }
 
@@ -26,7 +29,7 @@ class Category extends Component {
         const { posts } = this.props;
 
         return (
-            <PostList subheader={capitalize(category)} posts={posts} />
+            <PostList subheader={capitalize(category)} posts={posts && posts.filter( post => post.category === category)} />
         );
     }
 
@@ -42,8 +45,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchPostsByCategory: (category) => dispatch(fetchPostsByCategory(category)),
+        // fetchPostsByCategory: (category) => dispatch(fetchPostsByCategory(category)),  
+        fetchPosts: () => dispatch(fetchPosts()),
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

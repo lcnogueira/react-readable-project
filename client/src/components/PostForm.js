@@ -4,25 +4,22 @@ import { connect } from 'react-redux';
 import { capitalize } from '../utils/helper';
 import { SubmitButton, CancelButton } from './utils/PostButtons';
 import { Redirect } from 'react-router-dom';
-import { addPost } from '../actions';
+import { addPost, updatePost } from '../actions';
 import uuid from 'uuid';
 import Title from './utils/Title';
 
 class PostForm extends Component{
 
-    constructor(){
-        super();
-        this.state = {
-            title:'',
-            body:'',
-            author:'',
-            category: '',
-            dialogErrorOpen: false,
-            dialogSuccessOpen: false,
-            dialogCancelOpen: false,
-            finished: false,
-        }
-    };
+    state = {
+        author: this.props.post ? this.props.post.author : '',
+        title: this.props.post ? this.props.post.title : '',
+        body: this.props.post ? this.props.post.body : '',
+        category: this.props.post ? this.props.post.category : '',
+        dialogErrorOpen: false,
+        dialogSuccessOpen: false,
+        dialogCancelOpen: false,
+        finished: false,
+    }
 
     finished = () => {this.setState({finished: true})};
 
@@ -38,23 +35,38 @@ class PostForm extends Component{
 
     postSubmit = (event) => {
         event.preventDefault();
-        const { add } = this.props;
-        const newPost = {
-            id: uuid().split('-').join(''),
-            timestamp: Date.now(),
-            title: this.state.title,
-            body: this.state.body,
-            author: this.state.author,
-            category: this.state.category
-        };
+        const { add, post, update } = this.props;
+        let newPost = {};
 
         if(this.hasErrors()){
             this.toggleErrorDialog();
         }else{
-            add(newPost);
+            if(post){
+                newPost = {
+                    ...post,
+                    timestamp: Date.now(),
+                    author: this.state.author,
+                    body: this.state.body,
+                    title: this.state.title,
+                    category: this.state.category,
+                };
+                update(newPost);
+            }else{
+                newPost = {
+                    id: uuid().split('-').join(''),
+                    timestamp: Date.now(),
+                    title: this.state.title,
+                    body: this.state.body,
+                    author: this.state.author,
+                    category: this.state.category
+                }
+                add(newPost);
+            };
             this.toggleSuccessDialog();
-        }
-    }
+        };
+
+        
+    };
 
     hasErrors = () => {
         const {title, body, author, category } = this.state;
@@ -76,7 +88,7 @@ class PostForm extends Component{
 
         return (
             <div>
-                <Title title='New Post'/>
+                <Title title={this.props.post ? 'Update post' : 'New post'}/>
                 <Card style={{ padding: 10, margin: 'auto', maxWidth: '70%' }}>
                     <form> 
                         <TextField
@@ -132,18 +144,22 @@ class PostForm extends Component{
 
 }
 
-function mapStateToProps(state) {
-    const { categories } = state;
+function mapStateToProps(state, ownProps) {
+    const { categories, posts } = state;
+    const { postId } = ownProps.match.params;
   
     return {
+        //If the request is comming from the postList, uses current. Else, it uses posts.allPosts.
+      post: posts.allPosts ? posts.allPosts.find( (post) => post.id === postId ) : posts.current,
       categories: categories.allCategories
-    }
+    };
 };
 
 function mapDispatchToProps(dispatch){
     return {
+        update: (post) => dispatch(updatePost(post)),
         add: (post) => dispatch(addPost(post)),
-    }
-}
+    };
+};
   
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -9,6 +9,11 @@ function posts(state = {}, action) {
                 ...state,
                 allPosts: action.posts
             };
+        case types.FETCH_CURRENT_POST:
+            return {
+                ...state,
+                current: action.post
+            }
         case types.ADD_POST:
             return{
                 ...state, 

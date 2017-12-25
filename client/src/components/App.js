@@ -66,8 +66,8 @@ class App extends Component {
 
             <Switch>
               <Route path="/post/new" component={PostForm} />
+              <Route path="/post/edit/:postId" component={PostForm} />
               <Route path="/:category/:postId" component={PostDetails} />
-              {/* <Route path="/post/edit/:postId" component={PostDetails} /> */}
             </Switch>
 
           </main>

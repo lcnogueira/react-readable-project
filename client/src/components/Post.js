@@ -22,7 +22,7 @@ const Post = (props) => {
             </Link>
             <Divider/>
             <CardActions>
-                <IconButton tooltip='Edit'> <Edit /> </IconButton>
+                <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
                 <IconButton tooltip='Delete'> <Delete /> </IconButton>
                 <IconButton tooltip='Vote Up'> <SocialMood /> </IconButton>
                 <IconButton tooltip='Vote Down'> <SocialMoodBad /> </IconButton>

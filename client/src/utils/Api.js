@@ -25,9 +25,14 @@ export const getPostById = id =>
 export const addPost = post =>
   fetch(`${url}/posts`, {
     method: 'POST',
-    headers: {
-      ...headers,
-    },
+    headers: headers,
+    body: JSON.stringify(post)
+  }).then(res => res.json());
+
+export const updatePost = post =>
+  fetch(`${url}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: headers,
     body: JSON.stringify(post)
   }).then(res => res.json());
 
