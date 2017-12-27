@@ -12,6 +12,7 @@ import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 import CommentList from './CommentList';
 import { formatDate } from '../utils/helper';
 import Title from './utils/Title';
+import { sortBy } from '../utils/helper';
 
 const floatButtonStyle = {
     position: 'absolute',
@@ -34,14 +35,14 @@ class PostDetails extends Component {
 
         return (
             <div>
-                <FloatingActionButton 
+                <FloatingActionButton
                     mini
-                    style={floatButtonStyle} 
+                    style={floatButtonStyle}
                     containerElement={<Link to={`/${category}`} />}
                 >
                     <NavigationArrowBack />
-                </FloatingActionButton> 
-                <Title title='Post Details'/>
+                </FloatingActionButton>
+                <Title title='Post Details' />
                 {post && (
                     <Card style={{ padding: 10, margin: 10 }}>
                         <CardTitle
@@ -65,7 +66,7 @@ class PostDetails extends Component {
                         </Card> */}
                         <Card style={{ padding: 15, margin: 15 }}>
                             <CardHeader title={`${post.commentCount} comments`} />
-                            <CommentList comments={comments}/>
+                            <CommentList comments={comments} />
                         </Card>
                     </div>
                 )}
@@ -75,11 +76,11 @@ class PostDetails extends Component {
 };
 
 function mapStateToProps(state) {
-    const { comments, posts } = state;
+    const { comments, posts, commentsOrder } = state;
 
     return {
         post: posts.current,
-        comments: comments.allComments,
+        comments: sortBy(comments.allComments && comments.allComments, commentsOrder)
     }
 };
 

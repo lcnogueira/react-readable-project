@@ -61,9 +61,19 @@ function postsOrder(state = DEFAULT_ORDER, action) {
     }
 }
 
+function commentsOrder(state = DEFAULT_ORDER, action) {
+    switch (action.type) {
+      case types.SORT_COMMENTS:
+        return action.value;
+      default:
+        return state;
+    }
+}
+
 export default combineReducers({
     posts,
     categories,
     comments,
-    postsOrder
+    postsOrder,
+    commentsOrder
 });

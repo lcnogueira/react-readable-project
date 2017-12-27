@@ -3,7 +3,7 @@ import { IconButton, MenuItem, IconMenu } from 'material-ui';
 import { connect } from 'react-redux';
 import { sortPosts } from '../actions';
 import { TIMESTAMP_ORDER, SCORE_ORDER } from '../utils/orderTypes';
-import ContentFilter from 'material-ui/svg-icons/content/filter-list';
+import ContentSort from 'material-ui/svg-icons/content/sort';
 
 class PostOrderControl extends Component {
 
@@ -16,7 +16,7 @@ class PostOrderControl extends Component {
             <IconMenu
                 value={postsOrder}
                 onChange={this.handleOrderChange}
-                iconButtonElement={<IconButton><ContentFilter /></IconButton>}
+                iconButtonElement={<IconButton><ContentSort /></IconButton>}
             >
                 <MenuItem value={SCORE_ORDER} primaryText='Vote Score' />
                 <MenuItem value={TIMESTAMP_ORDER} primaryText='Time' />
