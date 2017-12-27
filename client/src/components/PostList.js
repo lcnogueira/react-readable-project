@@ -5,7 +5,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Link } from 'react-router-dom';
 import Title from './utils/Title';
-
+import PostOrderControl from './PostOrderControl';
 
 const floatButtonStyle = {
     position: 'fixed',
@@ -15,12 +15,14 @@ const floatButtonStyle = {
 
 const PostList = (props) => {
 
-    const { posts, subheader } = props;
+    const { posts, title } = props;
     
     return (
         <div>
             <List>
-                <Title title={subheader}/>
+                <Title title={title}>
+                    <PostOrderControl />
+                </Title>
                 {posts && posts.length > 0 && posts.map( (post) => (
                     <ListItem key={post.id}>
                         <Post post={post}/>

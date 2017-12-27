@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 import PostList from './PostList';
+import { sortBy } from '../utils/helper';
 
 class Home extends Component {
 
@@ -14,16 +15,16 @@ class Home extends Component {
     const { posts } = this.props;
 
     return (
-        <PostList subheader='Home' posts={posts} />
+        <PostList title='Home' posts={posts} />
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { posts } = state;
+  const { posts, postsOrder } = state;
 
   return {
-    posts: posts.allPosts
+    posts: sortBy(posts.allPosts && posts.allPosts.slice(), postsOrder)
   }
 
 };

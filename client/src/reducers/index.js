@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import * as types from '../actions/types';
+import { DEFAULT_ORDER } from '../utils/orderTypes';
+
 
 function posts(state = {}, action) {
 
@@ -50,8 +52,18 @@ function comments(state = {}, action) {
 
 };
 
+function postsOrder(state = DEFAULT_ORDER, action) {
+    switch (action.type) {
+      case types.SORT_POSTS:
+        return action.value;
+      default:
+        return state;
+    }
+}
+
 export default combineReducers({
     posts,
     categories,
-    comments
+    comments,
+    postsOrder
 });
