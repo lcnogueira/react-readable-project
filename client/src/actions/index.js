@@ -82,3 +82,13 @@ export function fetchCommentsByPost(postId){
     };
 };
 
+/** Order actions */
+export function sortPosts(order){
+    return dispatch => {
+        dispatch({
+            type: types.SORT_POSTS,
+            value: order
+        })
+    }
+}
+

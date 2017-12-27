@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import { fetchPostsByCategory } from '../actions';
 import { fetchPosts } from '../actions';
 import PostList from './PostList';
-import { capitalize } from '../utils/helper';
+import { capitalize, sortBy } from '../utils/helper';
 
 class Category extends Component {
 
@@ -29,25 +29,29 @@ class Category extends Component {
         const { posts } = this.props;
 
         return (
-            <PostList subheader={capitalize(category)} posts={posts && posts.filter( post => post.category === category)} />
+            <div>
+                <PostList title={capitalize(category)} posts={posts} />
+            </div>
         );
     }
 
 }
 
-function mapStateToProps(state) {
-    const { posts } = state;
+function mapStateToProps(state, ownProps) {
+    const { posts, postsOrder } = state;
+    const { category } = ownProps.match.params;
 
     return {
-        posts: posts.allPosts
-    }
-}
+        posts: sortBy(posts.allPosts && posts.allPosts.filter(post => post.category === category), postsOrder),
+        // posts: posts.allPosts && posts.allPosts.filter(post => post.category === category)
+    };
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         // fetchPostsByCategory: (category) => dispatch(fetchPostsByCategory(category)),  
         fetchPosts: () => dispatch(fetchPosts()),
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
