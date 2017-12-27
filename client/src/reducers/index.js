@@ -21,6 +21,8 @@ function posts(state = {}, action) {
                 ...state, 
                 newPost: action.newPost
             }
+        // case types.UPDATE_POST:
+        //     TODO
         default:
             return state;
     }

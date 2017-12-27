@@ -57,6 +57,16 @@ export function updatePost(post){
     };
 };
 
+export function votePost(id, option){
+    return dispatch => {
+        Api.votePost(id, option).then ( newPost =>
+            dispatch({
+                type: types.UPDATE_POST,
+                newPost
+            })
+        )        ;
+    };
+};
 
 /* Category actions */
 export function fetchCategories() {
