@@ -1,17 +1,9 @@
 import React from 'react';
 import Post from './Post';
 import List, { ListItem } from 'material-ui/List';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import { Link } from 'react-router-dom';
 import Title from './utils/Title';
 import PostOrderControl from './PostOrderControl';
-
-const floatButtonStyle = {
-    position: 'fixed',
-    right: 25,
-    bottom: 25,
-};
+import { AddPostFLoatingButton } from './utils/FloatingButtons';
 
 const PostList = (props) => {
 
@@ -29,9 +21,7 @@ const PostList = (props) => {
                     </ListItem>
                 ))}
             </List>
-            <FloatingActionButton style={floatButtonStyle} containerElement={<Link to={`/post/new`} />}>
-                <ContentAdd />
-            </FloatingActionButton>         
+            <AddPostFLoatingButton link={`/post/new`}/>
         </div>
         
     );

@@ -3,22 +3,15 @@ import { fetchCommentsByPost, fetchPostById } from '../actions/index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import { IconButton, FloatingActionButton } from 'material-ui';
-import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import { IconButton } from 'material-ui';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
 import SocialMood from 'material-ui/svg-icons/social/mood';
 import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 import CommentList from './CommentList';
-import { formatDate } from '../utils/helper';
+import { formatDate, sortBy } from '../utils/helper';
 import Title from './utils/Title';
-import { sortBy } from '../utils/helper';
-
-const floatButtonStyle = {
-    position: 'absolute',
-    left: 25,
-    top: 70,
-};
+import { BackFloatingButton } from './utils/FloatingButtons';
 
 class PostDetails extends Component {
 
@@ -35,13 +28,7 @@ class PostDetails extends Component {
 
         return (
             <div>
-                <FloatingActionButton
-                    mini
-                    style={floatButtonStyle}
-                    containerElement={<Link to={`/${category}`} />}
-                >
-                    <NavigationArrowBack />
-                </FloatingActionButton>
+                <BackFloatingButton link={`/${category}`}/>
                 <Title title='Post Details' />
                 {post && (
                     <Card style={{ padding: 10, margin: 10 }}>
