@@ -2,8 +2,8 @@ import React from 'react';
 import { Card, CardActions, CardTitle, CardText, IconButton, Divider } from 'material-ui';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
-import SocialMood from 'material-ui/svg-icons/social/mood';
-import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
+import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
+import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import AvLibraryBooks from 'material-ui/svg-icons/av/library-books';
 import { Link } from 'react-router-dom';
 
@@ -24,8 +24,8 @@ const Post = (props) => {
             <CardActions>
                 <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
                 <IconButton tooltip='Delete'> <Delete /> </IconButton>
-                <IconButton tooltip='Vote Up'> <SocialMood /> </IconButton>
-                <IconButton tooltip='Vote Down'> <SocialMoodBad /> </IconButton>
+                <IconButton tooltip='Vote Up'> <ActionThumbUp /> </IconButton>
+                <IconButton tooltip='Vote Down'> <ActionThumbDown /> </IconButton>
                 <IconButton tooltip='Post Details' containerElement={<Link to={`/${post.category}/${post.id}`} />}>
                     <AvLibraryBooks />
                 </IconButton>

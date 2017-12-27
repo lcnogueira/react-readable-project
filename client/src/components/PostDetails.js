@@ -6,8 +6,8 @@ import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/
 import { IconButton } from 'material-ui';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/image/edit';
-import SocialMood from 'material-ui/svg-icons/social/mood';
-import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
+import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
+import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import CommentList from './CommentList';
 import { formatDate, sortBy } from '../utils/helper';
 import Title from './utils/Title';
@@ -41,8 +41,8 @@ class PostDetails extends Component {
                         <CardActions>
                             <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
                             <IconButton tooltip='Delete'> <Delete /> </IconButton>
-                            <IconButton tooltip='Vote Up'> <SocialMood /> </IconButton>
-                            <IconButton tooltip='Vote Down'> <SocialMoodBad /> </IconButton>
+                            <IconButton tooltip='Vote Up'> <ActionThumbUp /> </IconButton>
+                            <IconButton tooltip='Vote Down'> <ActionThumbDown /> </IconButton>
                         </CardActions>
                     </Card>
                 )}
