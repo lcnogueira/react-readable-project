@@ -8,9 +8,7 @@ import Edit from 'material-ui/svg-icons/image/edit';
 import SocialMood from 'material-ui/svg-icons/social/mood';
 import SocialMoodBad from 'material-ui/svg-icons/social/mood-bad';
 
-const CommentList = (props) => {
-
-    const {comments} = props;
+const CommentList = ({comments}) => {
 
     return (
         <List>

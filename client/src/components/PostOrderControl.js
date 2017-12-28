@@ -25,16 +25,12 @@ class PostOrderControl extends Component {
     }
 }
 
-function mapStateToProps({ postsOrder }) {
-    return {
-        postsOrder
-    };
-}
+const mapStateToProps = ({ postsOrder }) => ({ postsOrder });
 
-function mapDispatchToProps(dispatch) {
-    return {
-        sortPosts: (order) => dispatch(sortPosts(order))
-    };
-}
+const mapDispatchToProps = (dispatch) => ({
+    sortPosts(order){
+        dispatch(sortPosts(order))
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostOrderControl);

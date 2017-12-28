@@ -26,9 +26,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //If there is no categories props, dispatch the fetchCategories action before mounting the component
-    if (!this.props.categories)
-      this.props.fetchCategories();
+    this.props.fetchCategories();
   }
 
   render() {
@@ -78,18 +76,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { categories } = state;
+const mapStateToProps = ({ categories }) => ({ categories });
 
-  return {
-    categories: categories.allCategories
+const mapDispatchToProps = (dispatch) => ({
+  fetchCategories() {
+    dispatch(fetchCategories())
   }
-};
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCategories: () => dispatch(fetchCategories()),
-  }
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

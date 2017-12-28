@@ -4,10 +4,10 @@ import * as Api from '../utils/Api';
 /* Posts actions */
 export function fetchPosts(){
     return dispatch => {
-        Api.getPosts().then( posts => 
+        Api.getPosts().then( data => 
             dispatch({
                 type: types.FETCH_POSTS,
-                posts
+                data
             })
         );
     };
@@ -15,10 +15,10 @@ export function fetchPosts(){
 
 export function fetchPostsByCategory(category){
     return dispatch => {
-        Api.getPostsByCategory(category).then( posts => 
+        Api.getPostsByCategory(category).then( data => 
             dispatch({
                 type: types.FETCH_POSTS,
-                posts
+                data
             })
         );
     };
@@ -26,10 +26,10 @@ export function fetchPostsByCategory(category){
 
 export function fetchPostById(id){
     return dispatch => {
-        Api.getPostById(id).then( post => 
+        Api.getPostById(id).then( data => 
             dispatch({
-                type: types.FETCH_CURRENT_POST,
-                post
+                type: types.FETCH_POSTS,
+                data: [data]
             })
         );
     };
@@ -37,10 +37,10 @@ export function fetchPostById(id){
 
 export function addPost(post){
     return dispatch => {
-        Api.addPost(post).then ( newPost =>
+        Api.addPost(post).then ( data =>
             dispatch({
                 type: types.ADD_POST,
-                newPost
+                data
             })
         );
     };
@@ -48,10 +48,10 @@ export function addPost(post){
 
 export function updatePost(post){
     return dispatch => {
-        Api.updatePost(post).then( newPost => 
+        Api.updatePost(post).then( data => 
             dispatch({
               type: types.UPDATE_POST,
-              newPost 
+              data 
             })
         );
     };
@@ -59,10 +59,10 @@ export function updatePost(post){
 
 export function votePost(id, option){
     return dispatch => {
-        Api.votePost(id, option).then ( newPost =>
+        Api.votePost(id, option).then ( data =>
             dispatch({
                 type: types.UPDATE_POST,
-                newPost
+                data
             })
         )        ;
     };
@@ -71,10 +71,10 @@ export function votePost(id, option){
 /* Category actions */
 export function fetchCategories() {
     return dispatch => {
-        Api.getCategories().then( categories => 
+        Api.getCategories().then( data => 
             dispatch({
                 type: types.FETCH_CATEGORIES, 
-                categories
+                data
             })
         );
     };
@@ -83,10 +83,10 @@ export function fetchCategories() {
 /* Comments actions */
 export function fetchCommentsByPost(postId){
     return dispatch => {
-        Api.getCommentsByPost(postId).then ( comments =>
+        Api.getCommentsByPost(postId).then ( data =>
             dispatch({
                 type: types.FETCH_COMMENTS,
-                comments
+                data
             })
         );
     };

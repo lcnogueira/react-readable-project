@@ -3,51 +3,42 @@ import * as types from '../actions/types';
 import { DEFAULT_ORDER } from '../utils/orderTypes';
 
 
-function posts(state = {}, action) {
+function posts(state = [], action) {
 
     switch (action.type) {
         case types.FETCH_POSTS:
-            return {
-                ...state,
-                allPosts: action.posts
-            };
-        case types.FETCH_CURRENT_POST:
-            return {
-                ...state,
-                current: action.post
-            }
+            return [...action.data];
         case types.ADD_POST:
-            return{
-                ...state, 
-                newPost: action.newPost
-            }
-        // case types.UPDATE_POST:
-        //     TODO
+            return[...state, action.data];
+        case types.UPDATE_POST:
+            return state.map(post => (action.data.id === post.id ? action.data : post));
         default:
             return state;
     }
 };
 
-function categories(state = {}, action) {
+// function currentPost(state={}, action){
+//     switch (action.type){
+//         case types.FETCH_CURRENT_POST:
+//             return Object.assign({}, state, action.data);
+//         default:
+//             return state;
+//     }
+// };
+
+function categories(state = [], action) {
     switch (action.type) {
         case types.FETCH_CATEGORIES:
-            return {
-                ...state,
-                allCategories: action.categories.categories
-            };
-
+            return action.data;
         default:
             return state;
     }
 };
 
-function comments(state = {}, action) {
+function comments(state = [], action) {
     switch (action.type) {
         case types.FETCH_COMMENTS:
-            return {
-                ...state,
-                allComments: action.comments
-            }
+            return [...action.data]
         default:
             return state;
     }
@@ -74,6 +65,7 @@ function commentsOrder(state = DEFAULT_ORDER, action) {
 
 export default combineReducers({
     posts,
+    // currentPost,
     categories,
     comments,
     postsOrder,

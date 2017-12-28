@@ -144,22 +144,22 @@ class PostForm extends Component{
 
 }
 
-function mapStateToProps(state, ownProps) {
-    const { categories, posts } = state;
-    const { postId } = ownProps.match.params;
-  
+const mapStateToProps = ({categories, posts, currentPost}, ownProps) => {
+    const {postId} = ownProps.match.params;
+
     return {
-        //If the request is comming from the postList, uses current. Else, it uses posts.allPosts.
-      post: posts.allPosts ? posts.allPosts.find( (post) => post.id === postId ) : posts.current,
-      categories: categories.allCategories
+        post: posts && posts.find( (post) => post.id === postId ),
+        categories
     };
 };
 
-function mapDispatchToProps(dispatch){
-    return {
-        update: (post) => dispatch(updatePost(post)),
-        add: (post) => dispatch(addPost(post)),
-    };
-};
+const mapDispatchToProps = (dispatch) => ({
+    update(post){
+        dispatch(updatePost(post));
+    },
+    add(post){
+        dispatch(addPost(post));
+    }
+});
   
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -52,14 +52,10 @@ class PostDetails extends Component {
     }
 };
 
-const mapStateToProps = ({posts, comments, commentsOrder},ownProps) => {
-        const { postId } = ownProps.match.params;
-
-        return {
-            post: posts && posts[0],
-            comments: sortBy(comments && comments.slice(), commentsOrder)
-        }
-};
+const mapStateToProps = ({posts, comments, commentsOrder}) => ({
+    post: posts && posts[0],
+    comments: sortBy(comments && comments.slice(), commentsOrder)
+});         
 
 const mapDispatchToProps = dispatch => ({
     fetchCommentsByPost(postId){

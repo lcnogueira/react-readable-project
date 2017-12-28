@@ -7,7 +7,6 @@ import { sortBy } from '../utils/helper';
 class Home extends Component {
 
   componentDidMount() {
-    //Dispatch the fetchPosts action before mounting the component
     this.props.fetchPosts();
   }
 
@@ -15,24 +14,17 @@ class Home extends Component {
     const { posts } = this.props;
 
     return (
-        <PostList title='Home' posts={posts} />
+      <PostList title='Home' posts={posts} />
     );
-  }
-}
-
-function mapStateToProps(state) {
-  const { posts, postsOrder } = state;
-
-  return {
-    posts: sortBy(posts.allPosts && posts.allPosts.slice(), postsOrder)
-  }
-
+  };
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPosts: () => dispatch(fetchPosts()),
+const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchPosts() {
+    dispatch(fetchPosts())
   }
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
