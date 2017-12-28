@@ -8,15 +8,11 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
 import { votePost } from '../actions';
 import { connect } from 'react-redux';
+import { sortBy } from '../utils/helper';
 
 class PostActions extends Component{
 
-    handlePostVote = (post, option) => {
-        console.log(this.props.vote);
-        console.log('post->',post);
-        console.log('option->',option);
-        this.props.vote(post.id, option)
-    };
+    handlePostVote = (post, option) => {this.props.vote(post.id, option)};
 
     render(){
 
@@ -33,15 +29,7 @@ class PostActions extends Component{
     };
 }
 
-function mapStateToProps({posts, postsOrder}, {post}) {
-    console.log('posts', posts);
-    console.log('postsOrder', postsOrder);
-    console.log('post', post);
-
-    return {
-        posts: posts.allPosts
-    };
-};
+const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
 
 function mapDispatchToProps(dispatch) {
     return {

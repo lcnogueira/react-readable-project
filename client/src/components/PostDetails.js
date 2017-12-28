@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { fetchCommentsByPost, fetchPostById } from '../actions/index';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import { IconButton } from 'material-ui';
-import Delete from 'material-ui/svg-icons/action/delete';
-import Edit from 'material-ui/svg-icons/image/edit';
-import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
-import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
+import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import CommentList from './CommentList';
 import { formatDate, sortBy } from '../utils/helper';
 import Title from './utils/Title';
 import { BackFloatingButton } from './utils/FloatingButtons';
+import PostActions from './PostActions';
 
 class PostDetails extends Component {
 
@@ -38,12 +33,7 @@ class PostDetails extends Component {
                         />
                         <CardText> {post.body} </CardText>
                         <CardText> Vote Score: {post.voteScore} </CardText>
-                        <CardActions>
-                            <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
-                            <IconButton tooltip='Delete'> <Delete /> </IconButton>
-                            <IconButton tooltip='Vote Up'> <ActionThumbUp /> </IconButton>
-                            <IconButton tooltip='Vote Down'> <ActionThumbDown /> </IconButton>
-                        </CardActions>
+                        <PostActions post={post}/>
                     </Card>
                 )}
                 {post && comments && (
@@ -62,21 +52,22 @@ class PostDetails extends Component {
     }
 };
 
-function mapStateToProps(state) {
-    const { comments, posts, commentsOrder } = state;
+const mapStateToProps = ({posts, comments, commentsOrder},ownProps) => {
+        const { postId } = ownProps.match.params;
 
-    return {
-        post: posts.current,
-        comments: sortBy(comments.allComments && comments.allComments, commentsOrder)
-    }
+        return {
+            post: posts && posts[0],
+            comments: sortBy(comments && comments.slice(), commentsOrder)
+        }
 };
 
-
-function mapDispatchToProps(dispatch) {
-    return {
-        fetchCommentsByPost: (postId) => dispatch(fetchCommentsByPost(postId)),
-        fetchPostById: (postId) => dispatch(fetchPostById(postId))
+const mapDispatchToProps = dispatch => ({
+    fetchCommentsByPost(postId){
+        dispatch(fetchCommentsByPost(postId));
+    },
+    fetchPostById(postId){
+        dispatch(fetchPostById(postId));
     }
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetails);
