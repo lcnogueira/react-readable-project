@@ -68,6 +68,19 @@ export function votePost(id, option){
     };
 };
 
+export function deletePost(data){
+    return dispatch => {
+        Api.deletePost(data.id).then(res => {
+            if (res.status === 200) {
+                dispatch({
+                    type: types.DELETE_POST,
+                    value: data
+                });
+            }
+        })
+    };
+};
+
 /* Category actions */
 export function fetchCategories() {
     return dispatch => {

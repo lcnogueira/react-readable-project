@@ -12,6 +12,8 @@ function posts(state = [], action) {
             return[...state, action.data];
         case types.UPDATE_POST:
             return state.map(post => (action.data.id === post.id ? action.data : post));
+        case types.DELETE_POST:
+            return state.filter(post => post.id !== action.value.id);
         default:
             return state;
     }

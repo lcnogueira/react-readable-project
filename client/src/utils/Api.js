@@ -37,6 +37,12 @@ export const updatePost = post =>
     body: JSON.stringify(post)
   }).then(res => res.json());
 
+export const deletePost = id =>
+  fetch(`${url}/posts/${id}`, {
+    method: 'DELETE',
+    headers: headers,
+  });
+
 export const votePost = (id, option) =>
   fetch(`${url}/posts/${id}`, {
     method: 'POST',
