@@ -5,23 +5,20 @@ import Title from './utils/Title';
 import PostOrderControl from './PostOrderControl';
 import { AddPostFLoatingButton } from './utils/FloatingButtons';
 
-const PostList = ({ posts, title }) => {
-
-    return (
-        <div>
-            <List>
-                <Title title={title}>
-                    <PostOrderControl />
-                </Title>
-                {posts && posts.map((post) => (
-                    <ListItem key={post.id}>
-                        <Post post={post} />
-                    </ListItem>
-                ))}
-            </List>
-            <AddPostFLoatingButton link={`/post/new`} />
-        </div>
-    );
-};
+const PostList = ({ posts, title }) => (
+    <div>
+        <List>
+            <Title title={title}>
+                <PostOrderControl />
+            </Title>
+            {posts && posts.map((post) => (
+                <ListItem key={post.id}>
+                    <Post post={post} />
+                </ListItem>
+            ))}
+        </List>
+        <AddPostFLoatingButton link={`/post/new`} />
+    </div>
+);
 
 export default PostList;
