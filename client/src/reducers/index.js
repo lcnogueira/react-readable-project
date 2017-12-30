@@ -41,6 +41,8 @@ function comments(state = [], action) {
     switch (action.type) {
         case types.FETCH_COMMENTS:
             return [...action.data]
+        case types.UPDATE_COMMENT:
+            return state.map(comment => (action.data.id === comment.id ? action.data : comment));
         default:
             return state;
     }

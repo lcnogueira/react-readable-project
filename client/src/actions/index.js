@@ -105,6 +105,17 @@ export function fetchCommentsByPost(postId){
     };
 };
 
+export function voteComment(id, option){
+    return dispatch => {
+        Api.voteComment(id, option).then ( data =>
+            dispatch({
+                type: types.UPDATE_COMMENT,
+                data
+            })
+        );
+    };
+};
+
 /** Order actions */
 export function sortPosts(order){
     return dispatch => {
