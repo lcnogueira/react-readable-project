@@ -116,6 +116,17 @@ export function voteComment(id, option){
     };
 };
 
+export function deleteComment(data){
+    return dispatch => {
+        Api.deleteComment(data.id).then(data => {
+            dispatch({
+                type: types.DELETE_COMMENT,
+                value: data
+            })
+        });
+    };
+};
+
 /** Order actions */
 export function sortPosts(order){
     return dispatch => {
@@ -123,6 +134,5 @@ export function sortPosts(order){
             type: types.SORT_POSTS,
             value: order
         })
-    }
-}
-
+    };
+};

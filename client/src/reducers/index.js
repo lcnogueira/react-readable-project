@@ -4,7 +4,6 @@ import { DEFAULT_ORDER } from '../utils/orderTypes';
 
 
 function posts(state = [], action) {
-
     switch (action.type) {
         case types.FETCH_POSTS:
             return [...action.data];
@@ -42,11 +41,12 @@ function comments(state = [], action) {
         case types.FETCH_COMMENTS:
             return [...action.data]
         case types.UPDATE_COMMENT:
-            return state.map(comment => (action.data.id === comment.id ? action.data : comment));
+            return state.map(comment => action.data.id === comment.id ? action.data : comment);
+        case types.DELETE_COMMENT:
+            return state.filter(comment => comment.id !== action.value.id);
         default:
             return state;
     }
-
 };
 
 function postsOrder(state = DEFAULT_ORDER, action) {

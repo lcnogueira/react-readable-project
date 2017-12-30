@@ -1,9 +1,7 @@
 import React from 'react';
 import { Dialog, FlatButton } from 'material-ui';
 
-const DeleteDialog = (props) => {
-
-    const { yesButton, dialogOpen, dialogClose } = props;
+const DeleteDialog = ({ yesButton, dialogOpen, dialogClose }) => {
 
     const deleteActions = [
         <FlatButton
@@ -27,7 +25,7 @@ const DeleteDialog = (props) => {
                 onRequestClose={dialogClose}
                 actions={deleteActions}
             >
-                Are you sure you want to delete this post?
+                Are you sure you want to delete it?
             </Dialog>
         </div>
     )

@@ -6,45 +6,63 @@ import Edit from 'material-ui/svg-icons/image/edit';
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
-import { formatDate, sortBy } from '../utils/helper';
-import { voteComment } from '../actions';
+import { formatDate } from '../utils/helper';
+import { voteComment, deleteComment } from '../actions';
 import { connect } from 'react-redux';
+import DeleteDialog from './utils/DeleteDialog';
 
 class Comment extends Component {
 
-    handleCommentVote = (post, option) => { this.props.vote(post.id, option) };
+    state = {
+        deleteDialogOpen: false
+    };
+
+    toggleDeleteDialog = () => {this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen })};
+    
+    handleDelete = event => {
+        event.preventDefault();
+        this.toggleDeleteDialog();
+    };
+    
+    deleteComment = () => { this.props.delete(this.props.comment); };
+
+    handleCommentVote = (comment, option) => { this.props.vote(comment.id, option) };
 
     render(){
         const { comment } = this.props;
 
         return (
-            <Card style={{padding: 5, margin: 5}}>
-                <CardTitle
-                    subtitle={'Sent: ' + formatDate(comment.timestamp) + ' - Author: ' + comment.author}
+            <div>
+                <Card style={{padding: 5, margin: 5}}>
+                    <CardTitle
+                        subtitle={'Sent: ' + formatDate(comment.timestamp) + ' - Author: ' + comment.author}
+                    />
+                    <CardText style={{fontSize: '1.2em'}}>
+                        {comment.body}
+                    </CardText>
+                    <CardText>
+                        Vote Score: {comment.voteScore}
+                    </CardText>
+                    <CardActions>
+                        <IconButton tooltip='Edit'> <Edit /> </IconButton>
+                        <IconButton tooltip='Delete' onClick={(event) => this.handleDelete(event)}> <Delete /> </IconButton>
+                        <IconButton tooltip='Vote Up' onClick={() => this.handleCommentVote(comment, VOTE_UP)}> <ActionThumbUp /> </IconButton>
+                        <IconButton tooltip='Vote Down' onClick={() => this.handleCommentVote(comment, VOTE_DOWN)}> <ActionThumbDown /> </IconButton>
+                    </CardActions>
+                </Card>
+                <DeleteDialog
+                    dialogOpen={this.state.deleteDialogOpen}
+                    dialogClose={this.toggleDeleteDialog}
+                    yesButton={this.deleteComment}
                 />
-                <CardText style={{fontSize: '1.2em'}}>
-                    {comment.body}
-                </CardText>
-                <CardText>
-                    Vote Score: {comment.voteScore}
-                </CardText>
-                <CardActions>
-                    <IconButton tooltip='Edit'> <Edit /> </IconButton>
-                    <IconButton tooltip='Delete'> <Delete /> </IconButton>
-                    <IconButton tooltip='Vote Up' onClick={() => this.handleCommentVote(comment, VOTE_UP)}> <ActionThumbUp /> </IconButton>
-                    <IconButton tooltip='Vote Down' onClick={() => this.handleCommentVote(comment, VOTE_DOWN)}> <ActionThumbDown /> </IconButton>
-                </CardActions>
-            </Card>
+            </div>
         );
     };
 };
 
-const mapStateToProps = ({comments, commentsOrder}) => ({
-    comments: sortBy(comments && comments.slice(), commentsOrder)
-});
-
 const mapDispatchToProps = dispatch => ({
     vote(comment, option) { dispatch(voteComment(comment, option)); },
+    delete(comment) { dispatch(deleteComment(comment)); }
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Comment);
+export default connect(null,mapDispatchToProps)(Comment);
