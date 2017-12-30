@@ -8,7 +8,6 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
 import { votePost, deletePost } from '../actions';
 import { connect } from 'react-redux';
-import { sortBy } from '../utils/helper';
 import DeleteDialog from './utils/DeleteDialog';
 
 class PostActions extends Component {
@@ -55,13 +54,11 @@ class PostActions extends Component {
             </div>
         );
     };
-}
-
-const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
+};
 
 const mapDispatchToProps = dispatch => ({
     vote(post, option) { dispatch(votePost(post, option)); },
     delete(post) { dispatch(deletePost(post)); }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostActions);
+export default connect(null, mapDispatchToProps)(PostActions);
