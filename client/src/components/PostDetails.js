@@ -38,11 +38,8 @@ class PostDetails extends Component {
                 )}
                 {post && comments && (
                     <div>
-                        {/* <Card style={{ padding: 5, margin: 5 }}>
-                            comment form here...
-                        </Card> */}
                         <Card style={{ padding: 15, margin: 15 }}>
-                            <CardHeader title={`${post.commentCount} comments`} />
+                            <CardHeader title={`${post.commentCount} comment(s)`} />
                             <CommentList comments={comments} />
                         </Card>
                     </div>

@@ -7,7 +7,7 @@ import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
 import { formatDate } from '../utils/helper';
-import { voteComment, deleteComment } from '../actions';
+import { voteComment, deleteComment, fetchPostById } from '../actions';
 import { connect } from 'react-redux';
 import DeleteDialog from './utils/DeleteDialog';
 
@@ -24,7 +24,10 @@ class Comment extends Component {
         this.toggleDeleteDialog();
     };
     
-    deleteComment = () => { this.props.delete(this.props.comment); };
+    deleteComment = () => { 
+        this.props.delete(this.props.comment); 
+        this.props.fetchPostById(this.props.comment.parentId);
+    };
 
     handleCommentVote = (comment, option) => { this.props.vote(comment.id, option) };
 
@@ -62,7 +65,8 @@ class Comment extends Component {
 
 const mapDispatchToProps = dispatch => ({
     vote(comment, option) { dispatch(voteComment(comment, option)); },
-    delete(comment) { dispatch(deleteComment(comment)); }
+    delete(comment) { dispatch(deleteComment(comment)); },
+    fetchPostById(postId){ dispatch(fetchPostById(postId)); }
 });
 
 export default connect(null,mapDispatchToProps)(Comment);
