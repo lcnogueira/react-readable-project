@@ -89,54 +89,56 @@ class PostForm extends Component{
         return (
             <div>
                 <Title title={this.props.post ? 'Update post' : 'New post'}/>
-                <Card style={{ padding: 10, margin: 'auto', maxWidth: '70%' }}>
-                    <form> 
-                        <TextField
-                            id='title'
-                            value={this.state.title}
-                            onChange={this.handleChange}
-                            floatingLabelText="Tittle *" 
-                            fullWidth
-                        /><br />
-                        <TextField
-                            id='body'
-                            value={this.state.body}
-                            onChange={this.handleChange}
-                            floatingLabelText="Body *"
-                            multiLine
-                            rows={2}
-                            rowsMax={4}
-                            fullWidth
-                        /><br />
-                        <TextField 
-                            id='author'
-                            value={this.state.author}
-                            onChange={this.handleChange}
-                            floatingLabelText="Author *" 
-                            fullWidth
-                        /><br />
-                        {categories && categories.length > 0 && (
-                           <SelectField floatingLabelText="Category *" value={this.state.category} onChange={this.selectCategory}>
-                                {categories.map((category) => (
-                                    <MenuItem key={category.path} value={category.name} primaryText={capitalize(category.name)} />
-                                ))}
-                            </SelectField>
-                        )}
-                        <SubmitButton 
-                            dialogErrorOpen={this.state.dialogErrorOpen} 
-                            dialogErrorClose={this.toggleErrorDialog} 
-                            dialogSuccessOpen={this.state.dialogSuccessOpen}
-                            dialogSuccessClose={this.toggleSuccessDialog}
-                            afterSuccess={this.finished}
-                            submit={this.postSubmit} />
-                        <CancelButton 
-                            dialogOpen={this.state.dialogCancelOpen}
-                            dialogClose={this.toggleCancelDialog}
-                            buttonSubmit={this.cancelSubmit}
-                            yesButton={this.finished}
-                        />
-                    </form>
-                </Card>
+                <div id='form' style={{marginTop: 10}}>
+                    <Card style={{ padding: 10, margin: 'auto', maxWidth: '70%' }}>
+                        <form> 
+                            <TextField
+                                id='title'
+                                value={this.state.title}
+                                onChange={this.handleChange}
+                                floatingLabelText="Tittle *" 
+                                fullWidth
+                            /><br />
+                            <TextField
+                                id='body'
+                                value={this.state.body}
+                                onChange={this.handleChange}
+                                floatingLabelText="Body *"
+                                multiLine
+                                rows={2}
+                                rowsMax={4}
+                                fullWidth
+                            /><br />
+                            <TextField 
+                                id='author'
+                                value={this.state.author}
+                                onChange={this.handleChange}
+                                floatingLabelText="Author *" 
+                                fullWidth
+                            /><br />
+                            {categories && categories.length > 0 && (
+                            <SelectField floatingLabelText="Category *" value={this.state.category} onChange={this.selectCategory}>
+                                    {categories.map((category) => (
+                                        <MenuItem key={category.path} value={category.name} primaryText={capitalize(category.name)} />
+                                    ))}
+                                </SelectField>
+                            )}
+                            <SubmitButton 
+                                dialogErrorOpen={this.state.dialogErrorOpen} 
+                                dialogErrorClose={this.toggleErrorDialog} 
+                                dialogSuccessOpen={this.state.dialogSuccessOpen}
+                                dialogSuccessClose={this.toggleSuccessDialog}
+                                afterSuccess={this.finished}
+                                submit={this.postSubmit} />
+                            <CancelButton 
+                                dialogOpen={this.state.dialogCancelOpen}
+                                dialogClose={this.toggleCancelDialog}
+                                buttonSubmit={this.cancelSubmit}
+                                yesButton={this.finished}
+                            />
+                        </form>
+                    </Card>
+                </div>
             </div>
         )
     }
