@@ -25,10 +25,11 @@ class PostDetails extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        const { comments, post } = this.props;
+        const { postId } = this.props.match.params;
+        const { comments } = this.props;
         const nextComments = nextProps.comments;
-        if(post && comments.length !== nextComments.length){
-            this.props.fetchPostById(post.id);
+        if(comments.length !== nextComments.length){
+            this.props.fetchPostById(postId);
         }
     };
 
