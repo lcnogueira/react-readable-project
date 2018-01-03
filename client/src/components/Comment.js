@@ -7,15 +7,19 @@ import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up';
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
 import { formatDate } from '../utils/helper';
-import { voteComment, deleteComment, fetchPostById } from '../actions';
+import { voteComment, deleteComment, fetchPostById, updateComment } from '../actions';
 import { connect } from 'react-redux';
 import DeleteDialog from './utils/DeleteDialog';
+import CommentFormModal from './CommentFormModal';
 
 class Comment extends Component {
 
     state = {
-        deleteDialogOpen: false
+        deleteDialogOpen: false,
+        commentModalOpen: false,
     };
+
+    toggleCommentModal = () => {this.setState({commentModalOpen: !this.state.commentModalOpen})};
 
     toggleDeleteDialog = () => {this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen })};
     
@@ -47,7 +51,7 @@ class Comment extends Component {
                         Vote Score: {comment.voteScore}
                     </CardText>
                     <CardActions>
-                        <IconButton tooltip='Edit'> <Edit /> </IconButton>
+                        <IconButton tooltip='Edit' onClick={this.toggleCommentModal}> <Edit /> </IconButton>
                         <IconButton tooltip='Delete' onClick={(event) => this.handleDelete(event)}> <Delete /> </IconButton>
                         <IconButton tooltip='Vote Up' onClick={() => this.handleCommentVote(comment, VOTE_UP)}> <ActionThumbUp /> </IconButton>
                         <IconButton tooltip='Vote Down' onClick={() => this.handleCommentVote(comment, VOTE_DOWN)}> <ActionThumbDown /> </IconButton>
@@ -58,6 +62,14 @@ class Comment extends Component {
                     dialogClose={this.toggleDeleteDialog}
                     yesButton={this.deleteComment}
                 />
+                {this.state.commentModalOpen && (
+                    <CommentFormModal 
+                        dialogOpen={this.state.commentModalOpen}
+                        dialogClose={this.toggleCommentModal}
+                        comment={comment}
+                        operation={this.props.update}
+                    />
+                )}
             </div>
         );
     };
@@ -66,7 +78,8 @@ class Comment extends Component {
 const mapDispatchToProps = dispatch => ({
     vote(comment, option) { dispatch(voteComment(comment, option)); },
     delete(comment) { dispatch(deleteComment(comment)); },
-    fetchPostById(postId){ dispatch(fetchPostById(postId)); }
+    fetchPostById(postId){ dispatch(fetchPostById(postId)); },
+    update(comment) { dispatch(updateComment(comment)); },
 });
 
 export default connect(null,mapDispatchToProps)(Comment);

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-// import { Card } from 'material-ui/Card';
 import { TextField, Dialog, FlatButton } from 'material-ui';
-// import { Dialog } from 'material-ui';
-// import Title from './utils/Title';
 import uuid from 'uuid';
 
 class CommentFormModal extends Component {
 
     state = {
-        author: '',
+        author: this.props.comment? this.props.comment.author : '',
         authorRequiredError: '',
-        body: '',
+        body: this.props.comment? this.props.comment.body : '',
         bodyRequiredError: '',
     };
 
@@ -20,7 +17,7 @@ class CommentFormModal extends Component {
 
     commentSubmit = (event) => {
         event.preventDefault();
-        const { post, operation, dialogClose } = this.props;
+        const { comment, post, operation, dialogClose } = this.props;
         let newComment = {};
         if(this.hasErrors()){
             this.setState({
@@ -28,12 +25,21 @@ class CommentFormModal extends Component {
                bodyRequiredError:  this.state.body.length ? '' : 'This field is required',
             });
         }else{
-            newComment = {
+            if(comment){
+                newComment = {
+                    ...comment,
+                    timestamp: Date.now(),
+                    body: this.state.body,
+                    author: this.state.author,
+                };
+            }else{
+                newComment = {
                     id: uuid().split('-').join(''),
                     timestamp: Date.now(),
                     body: this.state.body,
                     author: this.state.author,
                     parentId: post.id,
+                };
             };
             operation(newComment);
             this.setState({...this.cleanForm});
@@ -50,7 +56,7 @@ class CommentFormModal extends Component {
     };
 
     render(){
-        const { dialogOpen, dialogClose } = this.props;
+        const { comment, dialogOpen, dialogClose } = this.props;
 
         const actions = [
             <FlatButton
@@ -69,7 +75,7 @@ class CommentFormModal extends Component {
         return (
             <div id='commentForm'>
                 <Dialog
-                    title={'New Post'}
+                    title={ comment ? 'Update Comment' : 'New Comment'}
                     open={dialogOpen}
                     onRequestClose={dialogClose}
                     actions={actions}

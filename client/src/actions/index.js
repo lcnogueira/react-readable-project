@@ -105,6 +105,17 @@ export function addComment(comment){
     };    
 };
 
+export function updateComment(comment){
+    return dispatch => {
+        Api.updateComment(comment).then(data =>
+            dispatch({
+                type: types.UPDATE_COMMENT,
+                data
+            })
+        );
+    };
+};
+
 export function fetchCommentsByPost(postId){
     return dispatch => {
         Api.getCommentsByPost(postId).then ( data =>
