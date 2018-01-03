@@ -18,12 +18,10 @@ class App extends Component {
     super();
     this.state = {
       open: false,
-    }
-  }
+    };
+  };
 
-  toggleMenu = () => {
-    this.setState({ open: !this.state.open });
-  }
+  toggleMenu = () => { this.setState({ open: !this.state.open }); };
 
   componentDidMount() {
     this.props.fetchCategories();
@@ -37,7 +35,6 @@ class App extends Component {
       <BrowserRouter>
 
         <div>
-
           <AppBar
             title="Readable"
             onLeftIconButtonClick={this.toggleMenu}
@@ -79,9 +76,7 @@ class App extends Component {
 const mapStateToProps = ({ categories }) => ({ categories });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCategories() {
-    dispatch(fetchCategories())
-  }
+  fetchCategories() { dispatch(fetchCategories()); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -8,7 +8,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.fetchPosts();
-  }
+  };
 
   render() {
     const { posts } = this.props;
@@ -22,9 +22,7 @@ class Home extends Component {
 const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPosts() {
-    dispatch(fetchPosts())
-  }
+  fetchPosts() { dispatch(fetchPosts()); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -14,7 +14,7 @@ const addPostButtonStyle = {
     position: 'fixed',
     right: 25,
     bottom: 25,
-}
+};
 
 export const BackFloatingButton = ({link}) => {
 

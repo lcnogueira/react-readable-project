@@ -34,9 +34,7 @@ class Category extends Component {
 const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPostsByCategory(category) {
-      dispatch(fetchPostsByCategory(category))
-    }
+    fetchPostsByCategory(category) { dispatch(fetchPostsByCategory(category)); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

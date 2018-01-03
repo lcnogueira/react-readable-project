@@ -64,7 +64,7 @@ export function votePost(id, option){
                 type: types.UPDATE_POST,
                 data
             })
-        )        ;
+        );
     };
 };
 
@@ -77,7 +77,7 @@ export function deletePost(data){
                     value: data
                 });
             }
-        })
+        });
     };
 };
 

@@ -8,7 +8,7 @@ export const SubmitButton = (props) => {
     const onSuccess = () => {
         dialogSuccessClose();
         afterSuccess();
-    }
+    };
 
     const errorActions = [
         <FlatButton
@@ -48,8 +48,7 @@ export const SubmitButton = (props) => {
                 The new post was added!
             </Dialog>
         </div>
-    )
-
+    );
 };
 
 export const CancelButton = (props) => {
@@ -83,5 +82,5 @@ export const CancelButton = (props) => {
                 Are you sure you want to cancel it?
             </Dialog>
         </div>
-    )
-}
+    );
+};

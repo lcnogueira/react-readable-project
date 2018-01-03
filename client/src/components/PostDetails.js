@@ -14,7 +14,7 @@ class PostDetails extends Component {
 
     state = {
         commentModalOpen: false,
-    }
+    };
 
     toggleCommentModal = () => {this.setState({commentModalOpen: !this.state.commentModalOpen})};
 
@@ -22,7 +22,7 @@ class PostDetails extends Component {
         const { postId } = this.props.match.params;
         this.props.fetchCommentsByPost(postId);
         this.props.fetchPostById(postId);
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         const { comments, post } = this.props;
@@ -30,7 +30,7 @@ class PostDetails extends Component {
         if(post && comments.length !== nextComments.length){
             this.props.fetchPostById(post.id);
         }
-    }
+    };
 
     render() {
 
@@ -70,8 +70,8 @@ class PostDetails extends Component {
                     </div>
                 )}
             </div>
-        )
-    }
+        );
+    };
 };
 
 const mapStateToProps = ({posts, comments, commentsOrder}) => ({

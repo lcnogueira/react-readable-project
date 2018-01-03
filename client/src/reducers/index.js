@@ -18,15 +18,6 @@ function posts(state = [], action) {
     }
 };
 
-// function currentPost(state={}, action){
-//     switch (action.type){
-//         case types.FETCH_CURRENT_POST:
-//             return Object.assign({}, state, action.data);
-//         default:
-//             return state;
-//     }
-// };
-
 function categories(state = [], action) {
     switch (action.type) {
         case types.FETCH_CATEGORIES:
@@ -58,7 +49,7 @@ function postsOrder(state = DEFAULT_ORDER, action) {
       default:
         return state;
     }
-}
+};
 
 function commentsOrder(state = DEFAULT_ORDER, action) {
     switch (action.type) {
@@ -67,11 +58,10 @@ function commentsOrder(state = DEFAULT_ORDER, action) {
       default:
         return state;
     }
-}
+};
 
 export default combineReducers({
     posts,
-    // currentPost,
     categories,
     comments,
     postsOrder,

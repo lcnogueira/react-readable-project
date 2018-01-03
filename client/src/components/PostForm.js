@@ -19,7 +19,7 @@ class PostForm extends Component{
         dialogSuccessOpen: false,
         dialogCancelOpen: false,
         finished: false,
-    }
+    };
 
     finished = () => {this.setState({finished: true})};
 
@@ -71,12 +71,12 @@ class PostForm extends Component{
     hasErrors = () => {
         const {title, body, author, category } = this.state;
         return (title.length===0 || body.length===0 || author.length===0 || category.length===0) ? true: false;
-    }
+    };
 
     cancelSubmit = (event) => {
         event.preventDefault();
         this.toggleCancelDialog();
-    }
+    };
 
     render(){
         const { finished } = this.state;
@@ -140,13 +140,11 @@ class PostForm extends Component{
                     </Card>
                 </div>
             </div>
-        )
-    }
+        );
+    };
+};
 
-
-}
-
-const mapStateToProps = ({categories, posts, currentPost}, ownProps) => {
+const mapStateToProps = ({categories, posts}, ownProps) => {
     const {postId} = ownProps.match.params;
 
     return {
@@ -156,12 +154,8 @@ const mapStateToProps = ({categories, posts, currentPost}, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    update(post){
-        dispatch(updatePost(post));
-    },
-    add(post){
-        dispatch(addPost(post));
-    }
+    update(post){ dispatch(updatePost(post)); },
+    add(post){ dispatch(addPost(post)); }
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

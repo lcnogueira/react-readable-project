@@ -28,7 +28,7 @@ const DeleteDialog = ({ yesButton, dialogOpen, dialogClose }) => {
                 Are you sure you want to delete it?
             </Dialog>
         </div>
-    )
+    );
 };
 
 export default DeleteDialog;
