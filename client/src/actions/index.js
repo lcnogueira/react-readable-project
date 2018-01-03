@@ -94,6 +94,17 @@ export function fetchCategories() {
 };
 
 /* Comments actions */
+export function addComment(comment){
+    return dispatch => {
+        Api.addComment(comment).then(data => {
+            dispatch({
+              type: types.ADD_COMMENT,
+              data
+            })
+        });
+    };    
+};
+
 export function fetchCommentsByPost(postId){
     return dispatch => {
         Api.getCommentsByPost(postId).then ( data =>

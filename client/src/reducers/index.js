@@ -39,7 +39,9 @@ function categories(state = [], action) {
 function comments(state = [], action) {
     switch (action.type) {
         case types.FETCH_COMMENTS:
-            return [...action.data]
+            return [...action.data];
+        case types.ADD_COMMENT:
+            return[...state, action.data];
         case types.UPDATE_COMMENT:
             return state.map(comment => action.data.id === comment.id ? action.data : comment);
         case types.DELETE_COMMENT:
