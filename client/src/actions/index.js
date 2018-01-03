@@ -1,160 +1,118 @@
 import * as types from './types';
 import * as Api from '../utils/Api';
 
-/* Posts actions */
-export function fetchPosts(){
-    return dispatch => {
-        Api.getPosts().then( data => 
-            dispatch({
-                type: types.FETCH_POSTS,
-                data
-            })
-        );
-    };
-};
-
-export function fetchPostsByCategory(category){
-    return dispatch => {
-        Api.getPostsByCategory(category).then( data => 
-            dispatch({
-                type: types.FETCH_POSTS,
-                data
-            })
-        );
-    };
-};
-
-export function fetchPostById(id){
-    return dispatch => {
-        Api.getPostById(id).then( data => 
-            dispatch({
-                type: types.FETCH_POSTS,
-                data: [data]
-            })
-        );
-    };
-};
-
-export function addPost(post){
-    return dispatch => {
-        Api.addPost(post).then ( data =>
-            dispatch({
-                type: types.ADD_POST,
-                data
-            })
-        );
-    };
-};
-
-export function updatePost(post){
-    return dispatch => {
-        Api.updatePost(post).then( data => 
-            dispatch({
-              type: types.UPDATE_POST,
-              data 
-            })
-        );
-    };
-};
-
-export function votePost(id, option){
-    return dispatch => {
-        Api.votePost(id, option).then ( data =>
-            dispatch({
-                type: types.UPDATE_POST,
-                data
-            })
-        );
-    };
-};
-
-export function deletePost(data){
-    return dispatch => {
-        Api.deletePost(data.id).then(res => {
-            if (res.status === 200) {
-                dispatch({
-                    type: types.DELETE_POST,
-                    value: data
-                });
-            }
-        });
-    };
-};
-
 /* Category actions */
-export function fetchCategories() {
-    return dispatch => {
-        Api.getCategories().then( data => 
+export const fetchCategories = () => dispatch =>
+    Api.getCategories().then(data =>
+        dispatch({
+            type: types.FETCH_CATEGORIES,
+            data
+        })
+    );
+
+/* Posts actions */
+export const fetchPosts = () => dispatch =>
+    Api.getPosts().then(data =>
+        dispatch({
+            type: types.FETCH_POSTS,
+            data
+        })
+    );
+
+export const fetchPostsByCategory = category => dispatch =>
+    Api.getPostsByCategory(category).then(data =>
+        dispatch({
+            type: types.FETCH_POSTS,
+            data
+        })
+    );
+
+export const fetchPostById = id => dispatch =>
+    Api.getPostById(id).then(data =>
+        dispatch({
+            type: types.FETCH_POSTS,
+            data: [data]
+        })
+    );
+
+export const addPost = post => dispatch =>
+    Api.addPost(post).then(data =>
+        dispatch({
+            type: types.ADD_POST,
+            data
+        })
+    );
+
+export const updatePost = post => dispatch =>
+    Api.updatePost(post).then(data =>
+        dispatch({
+            type: types.UPDATE_POST,
+            data
+        })
+    );
+
+export const votePost = (id, option) => dispatch =>
+    Api.votePost(id, option).then(data =>
+        dispatch({
+            type: types.UPDATE_POST,
+            data
+        })
+    );
+
+export const deletePost = data => dispatch =>
+    Api.deletePost(data.id).then(res => {
+        if (res.status === 200) {
             dispatch({
-                type: types.FETCH_CATEGORIES, 
-                data
-            })
-        );
-    };
-};
+                type: types.DELETE_POST,
+                value: data
+            });
+        }
+    });
 
 /* Comments actions */
-export function addComment(comment){
-    return dispatch => {
-        Api.addComment(comment).then(data => {
-            dispatch({
-              type: types.ADD_COMMENT,
-              data
-            })
-        });
-    };    
-};
+export const addComment = comment => dispatch =>
+    Api.addComment(comment).then(data => {
+        dispatch({
+            type: types.ADD_COMMENT,
+            data
+        })
+    });
 
-export function updateComment(comment){
-    return dispatch => {
-        Api.updateComment(comment).then(data =>
-            dispatch({
-                type: types.UPDATE_COMMENT,
-                data
-            })
-        );
-    };
-};
+export const updateComment = comment => dispatch =>
+    Api.updateComment(comment).then(data =>
+        dispatch({
+            type: types.UPDATE_COMMENT,
+            data
+        })
+    );
 
-export function fetchCommentsByPost(postId){
-    return dispatch => {
-        Api.getCommentsByPost(postId).then ( data =>
-            dispatch({
-                type: types.FETCH_COMMENTS,
-                data
-            })
-        );
-    };
-};
+export const fetchCommentsByPost = postId => dispatch =>
+    Api.getCommentsByPost(postId).then(data =>
+        dispatch({
+            type: types.FETCH_COMMENTS,
+            data
+        })
+    );
 
-export function voteComment(id, option){
-    return dispatch => {
-        Api.voteComment(id, option).then ( data =>
-            dispatch({
-                type: types.UPDATE_COMMENT,
-                data
-            })
-        );
-    };
-};
+export const voteComment = (id, option) => dispatch =>
+    Api.voteComment(id, option).then(data =>
+        dispatch({
+            type: types.UPDATE_COMMENT,
+            data
+        })
+    );
 
-export function deleteComment(data){
-    return dispatch => {
-        Api.deleteComment(data.id).then(data => {
-            dispatch({
-                type: types.DELETE_COMMENT,
-                value: data
-            })
-        });
-    };
-};
+export const deleteComment = data => dispatch =>
+    Api.deleteComment(data.id).then(data => {
+        dispatch({
+            type: types.DELETE_COMMENT,
+            value: data
+        })
+    });
 
 /** Order actions */
-export function sortPosts(order){
-    return dispatch => {
-        dispatch({
-            type: types.SORT_POSTS,
-            value: order
-        })
-    };
-};
+export const sortPosts = order => dispatch =>
+    dispatch({
+        type: types.SORT_POSTS,
+        value: order
+    })

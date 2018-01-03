@@ -1,29 +1,15 @@
-import * as moment from "moment";
+import * as moment from 'moment';
 import {TIMESTAMP_ORDER, SCORE_ORDER, DEFAULT_ORDER } from './orderTypes'
 
-export function capitalize(str = '') {
-    return typeof str !== 'string'
-        ? ''
-        : str[0].toUpperCase() + str.slice(1);
-};
+export const capitalize = (str = '') => typeof str !== 'string' ? '' : str[0].toUpperCase() + str.slice(1);
 
-export function formatDate(timestamp) {
-    return moment(timestamp).format('Do MMM YYYY');
-};
+export const formatDate = timestamp => moment(timestamp).format('Do MMM YYYY');
 
-function sortByVoteScore(elements){
-    return Array.isArray(elements)
-        ? elements.sort((a, b) => b.voteScore - a.voteScore)
-        : elements;
-};
+const sortByVoteScore = elements => Array.isArray(elements) ? elements.sort((a, b) => b.voteScore - a.voteScore) : elements;
 
-function sortByTimeStamp(elements){
-    return Array.isArray(elements)
-        ? elements.sort((a, b) => b.timestamp - a.timestamp)
-        : elements;
-};
+const sortByTimeStamp = elements => Array.isArray(elements) ? elements.sort((a, b) => b.timestamp - a.timestamp) : elements;
 
-export function sortBy(elements, order = DEFAULT_ORDER) {
+export const sortBy = (elements, order = DEFAULT_ORDER) => {
     switch (order) {
         case SCORE_ORDER:
             return sortByVoteScore(elements);
