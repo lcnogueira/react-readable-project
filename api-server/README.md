@@ -1,29 +1,16 @@
 # API Server
 
-To install and start the API server, run the following commands in this directory:
+This api-server was provided by udacity at a [github starter project](https://github.com/udacity/reactnd-project-readable-starter).
 
-* `npm install`
-* `node server`
+## Using the server
 
-## Using The Server
-
-### Include An Authorization Header
-
-All requests should use an **Authorization header** to work with your own data:
-
-```js
-fetch(
-    url,
-    {
-        headers: { 'Authorization': 'whatever-you-want' }
-    }
-)
+To install and run the API server:
+```
+npm install
+node server
 ```
 
-### Comment Counts
-Posts retrieved in a list or individually now contain comment counts in the format `post: { commentCount: 0 }`.  This should make it easier to display the number of comments a post has without having to call the comments endpoint for each post.   This count is updated whenever a comment is added or deleted via the `POST /comments` or `DELETE /comments/:id` endpoints.
-
-### API Endpoint
+## API Endpoint
 
 The following endpoints are available:
 
