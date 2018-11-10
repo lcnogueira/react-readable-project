@@ -13,49 +13,54 @@ import PostDetails from './PostDetails';
 import PostForm from './PostForm';
 
 class App extends Component {
-
   constructor() {
     super();
     this.state = {
       open: false,
     };
-  };
+  }
 
-  toggleMenu = () => { this.setState({ open: !this.state.open }); };
+  toggleMenu = () => {
+    this.setState({ open: !this.state.open });
+  };
 
   componentDidMount() {
     this.props.fetchCategories();
   }
 
   render() {
-
     const { categories } = this.props;
 
     return (
       <BrowserRouter>
-
         <div>
-          <AppBar
-            title="Readable"
-            onLeftIconButtonClick={this.toggleMenu}
-          />
+          <AppBar title="Readable" onLeftIconButtonClick={this.toggleMenu} />
 
-          <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
-            <AppBar title='Menu' />
-            <MenuItem leftIcon={<ActionHome />} onClick={this.toggleMenu} containerElement={<Link to="/" />} primaryText="Home" />
-            {categories && categories.map((category) => (
-              <MenuItem
-                leftIcon={<ContentFilterList />}
-                key={category.name}
-                onClick={this.toggleMenu}
-                containerElement={<Link to={`/${category.path}`} />}
-                primaryText={capitalize(category.name)}
-              />
-            ))}
+          <Drawer
+            open={this.state.open}
+            docked={false}
+            onRequestChange={open => this.setState({ open })}
+          >
+            <AppBar title="Menu" />
+            <MenuItem
+              leftIcon={<ActionHome />}
+              onClick={this.toggleMenu}
+              containerElement={<Link to="/" />}
+              primaryText="Home"
+            />
+            {categories &&
+              categories.map(category => (
+                <MenuItem
+                  leftIcon={<ContentFilterList />}
+                  key={category.name}
+                  onClick={this.toggleMenu}
+                  containerElement={<Link to={`/${category.path}`} />}
+                  primaryText={capitalize(category.name)}
+                />
+              ))}
           </Drawer>
 
           <main>
-
             <Route exact path="/" component={Home} />
             <Route exact path="/:category" component={Category} />
 
@@ -64,9 +69,7 @@ class App extends Component {
               <Route path="/post/edit/:postId" component={PostForm} />
               <Route path="/:category/:postId" component={PostDetails} />
             </Switch>
-
           </main>
-
         </div>
       </BrowserRouter>
     );
@@ -75,8 +78,13 @@ class App extends Component {
 
 const mapStateToProps = ({ categories }) => ({ categories });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCategories() { dispatch(fetchCategories()); }
+const mapDispatchToProps = dispatch => ({
+  fetchCategories() {
+    dispatch(fetchCategories());
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
