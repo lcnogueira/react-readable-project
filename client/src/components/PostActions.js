@@ -11,54 +11,87 @@ import { connect } from 'react-redux';
 import DeleteDialog from './DeleteDialog';
 
 class PostActions extends Component {
+  state = {
+    deleted: false,
+    deleteDialogOpen: false,
+  };
 
-    state = {
-        deleted: false,
-        deleteDialogOpen: false
-    };
+  toggleDeleteDialog = () => {
+    this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen });
+  };
 
-    toggleDeleteDialog = () => { this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen }) };
+  handleDelete = event => {
+    event.preventDefault();
+    this.toggleDeleteDialog();
+  };
 
-    handleDelete = event => {
-        event.preventDefault();
-        this.toggleDeleteDialog();
-    };
+  deletePost = () => {
+    this.props.delete(this.props.post);
+    this.setState({ deleted: true });
+  };
 
-    deletePost = () => {
-        this.props.delete(this.props.post);
-        this.setState({ deleted: true });
-    };
+  handlePostVote = (post, option) => {
+    this.props.vote(post.id, option);
+  };
 
-    handlePostVote = (post, option) => { this.props.vote(post.id, option) };
+  render() {
+    const { deleted } = this.state;
+    const { post } = this.props;
 
-    render() {
-        const { deleted } = this.state;
-        const { post } = this.props;
+    if (deleted) return <Redirect to={'/'} />;
 
-        if (deleted)
-            return <Redirect to={'/'} />;
-
-        return (
-            <div>
-                <CardActions>
-                    <IconButton tooltip='Edit' containerElement={<Link to={`/post/edit/${post.id}`} />}> <Edit /> </IconButton>
-                    <IconButton tooltip='Delete' onClick={(event) => this.handleDelete(event)}> <Delete /> </IconButton>
-                    <IconButton tooltip='Vote Up' onClick={() => this.handlePostVote(post, VOTE_UP)}> <ActionThumbUp /> </IconButton>
-                    <IconButton tooltip='Vote Down' onClick={() => this.handlePostVote(post, VOTE_DOWN)}> <ActionThumbDown /> </IconButton>
-                </CardActions>
-                <DeleteDialog
-                    dialogOpen={this.state.deleteDialogOpen}
-                    dialogClose={this.toggleDeleteDialog}
-                    yesButton={this.deletePost}
-                />
-            </div>
-        );
-    };
-};
+    return (
+      <div>
+        <CardActions>
+          <IconButton
+            tooltip="Edit"
+            containerElement={<Link to={`/post/edit/${post.id}`} />}
+          >
+            {' '}
+            <Edit />{' '}
+          </IconButton>
+          <IconButton
+            tooltip="Delete"
+            onClick={event => this.handleDelete(event)}
+          >
+            {' '}
+            <Delete />{' '}
+          </IconButton>
+          <IconButton
+            tooltip="Vote Up"
+            onClick={() => this.handlePostVote(post, VOTE_UP)}
+          >
+            {' '}
+            <ActionThumbUp />{' '}
+          </IconButton>
+          <IconButton
+            tooltip="Vote Down"
+            onClick={() => this.handlePostVote(post, VOTE_DOWN)}
+          >
+            {' '}
+            <ActionThumbDown />{' '}
+          </IconButton>
+        </CardActions>
+        <DeleteDialog
+          dialogOpen={this.state.deleteDialogOpen}
+          dialogClose={this.toggleDeleteDialog}
+          yesButton={this.deletePost}
+        />
+      </div>
+    );
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
-    vote(post, option) { dispatch(votePost(post, option)); },
-    delete(post) { dispatch(deletePost(post)); }
+  vote(post, option) {
+    dispatch(votePost(post, option));
+  },
+  delete(post) {
+    dispatch(deletePost(post));
+  },
 });
 
-export default connect(null, mapDispatchToProps)(PostActions);
+export default connect(
+  null,
+  mapDispatchToProps
+)(PostActions);

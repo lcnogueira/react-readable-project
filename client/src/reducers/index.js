@@ -6,9 +6,9 @@ import postsOrder from './postsOrderReducer';
 import commentsOrder from './commentsOrderReducer';
 
 export default combineReducers({
-    posts,
-    categories,
-    comments,
-    postsOrder,
-    commentsOrder
+  posts,
+  categories,
+  comments,
+  postsOrder,
+  commentsOrder,
 });

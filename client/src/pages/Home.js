@@ -5,24 +5,28 @@ import PostList from '../components/PostList';
 import { sortBy } from '../utils/helper';
 
 class Home extends Component {
-
   componentDidMount() {
     this.props.fetchPosts();
-  };
+  }
 
   render() {
     const { posts } = this.props;
 
-    return (
-      <PostList title='Home' posts={posts} />
-    );
-  };
-};
+    return <PostList title="Home" posts={posts} />;
+  }
+}
 
-const mapStateToProps = ({ posts, postsOrder }) => ({ posts: sortBy(posts && posts.slice(), postsOrder) });
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchPosts() { dispatch(fetchPosts()); }
+const mapStateToProps = ({ posts, postsOrder }) => ({
+  posts: sortBy(posts && posts.slice(), postsOrder),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const mapDispatchToProps = dispatch => ({
+  fetchPosts() {
+    dispatch(fetchPosts());
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
