@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 import '../styles/App.css';
-import Home from './Home';
-import Category from './Category';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions';
 import { capitalize } from '../utils/helper';
 import { AppBar, MenuItem, Drawer } from 'material-ui';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ContentFilterList from 'material-ui/svg-icons/content/filter-list';
+import Home from './Home';
+import Category from './Category';
 import PostDetails from './PostDetails';
 import PostForm from './PostForm';
 

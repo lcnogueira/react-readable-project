@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Card, TextField, SelectField, MenuItem } from 'material-ui';
 import { connect } from 'react-redux';
 import { capitalize } from '../utils/helper';
-import { SubmitButton, CancelButton } from './utils/PostButtons';
 import { Redirect } from 'react-router-dom';
 import { addPost, updatePost } from '../actions';
 import uuid from 'uuid';
-import Title from './utils/Title';
+import Title from '../components/Title';
+import { SubmitButton, CancelButton } from '../components/PostButtons';
 
-class PostForm extends Component{
+class PostForm extends Component {
 
     state = {
         author: this.props.post ? this.props.post.author : '',
@@ -21,27 +21,27 @@ class PostForm extends Component{
         finished: false,
     };
 
-    finished = () => {this.setState({finished: true})};
+    finished = () => { this.setState({ finished: true }) };
 
-    toggleCancelDialog = () => {this.setState({dialogCancelOpen: !this.state.dialogCancelOpen})};
+    toggleCancelDialog = () => { this.setState({ dialogCancelOpen: !this.state.dialogCancelOpen }) };
 
-    toggleSuccessDialog = () => {this.setState({dialogSuccessOpen: !this.state.dialogSuccessOpen})};
+    toggleSuccessDialog = () => { this.setState({ dialogSuccessOpen: !this.state.dialogSuccessOpen }) };
 
-    toggleErrorDialog = () => {this.setState({dialogErrorOpen: !this.state.dialogErrorOpen})};
+    toggleErrorDialog = () => { this.setState({ dialogErrorOpen: !this.state.dialogErrorOpen }) };
 
-    handleChange = (event,value) => { this.setState({[event.target.id]: value});};
+    handleChange = (event, value) => { this.setState({ [event.target.id]: value }); };
 
-    selectCategory = (event,index,value) => { this.setState({category:value}); };
+    selectCategory = (event, index, value) => { this.setState({ category: value }); };
 
     postSubmit = (event) => {
         event.preventDefault();
         const { add, post, update } = this.props;
         let newPost = {};
 
-        if(this.hasErrors()){
+        if (this.hasErrors()) {
             this.toggleErrorDialog();
-        }else{
-            if(post){
+        } else {
+            if (post) {
                 newPost = {
                     ...post,
                     timestamp: Date.now(),
@@ -51,7 +51,7 @@ class PostForm extends Component{
                     category: this.state.category,
                 };
                 update(newPost);
-            }else{
+            } else {
                 newPost = {
                     id: uuid().split('-').join(''),
                     timestamp: Date.now(),
@@ -65,12 +65,12 @@ class PostForm extends Component{
             this.toggleSuccessDialog();
         };
 
-        
+
     };
 
     hasErrors = () => {
-        const {title, body, author, category } = this.state;
-        return (title.length===0 || body.length===0 || author.length===0 || category.length===0) ? true: false;
+        const { title, body, author, category } = this.state;
+        return (title.length === 0 || body.length === 0 || author.length === 0 || category.length === 0) ? true : false;
     };
 
     cancelSubmit = (event) => {
@@ -78,25 +78,25 @@ class PostForm extends Component{
         this.toggleCancelDialog();
     };
 
-    render(){
+    render() {
         const { finished } = this.state;
 
-        if(finished)
+        if (finished)
             return <Redirect to={'/'} />;
 
         const { categories } = this.props;
 
         return (
             <div>
-                <Title title={this.props.post ? 'Update post' : 'New post'}/>
-                <div id='form' style={{marginTop: 10}}>
+                <Title title={this.props.post ? 'Update post' : 'New post'} />
+                <div id='form' style={{ marginTop: 10 }}>
                     <Card style={{ padding: 10, margin: 'auto', maxWidth: '70%' }}>
-                        <form> 
+                        <form>
                             <TextField
                                 id='title'
                                 value={this.state.title}
                                 onChange={this.handleChange}
-                                floatingLabelText="Tittle *" 
+                                floatingLabelText="Tittle *"
                                 fullWidth
                             /><br />
                             <TextField
@@ -109,28 +109,28 @@ class PostForm extends Component{
                                 rowsMax={4}
                                 fullWidth
                             /><br />
-                            <TextField 
+                            <TextField
                                 id='author'
                                 value={this.state.author}
                                 onChange={this.handleChange}
-                                floatingLabelText="Author *" 
+                                floatingLabelText="Author *"
                                 fullWidth
                             /><br />
                             {categories && categories.length > 0 && (
-                            <SelectField floatingLabelText="Category *" value={this.state.category} onChange={this.selectCategory}>
+                                <SelectField floatingLabelText="Category *" value={this.state.category} onChange={this.selectCategory}>
                                     {categories.map((category) => (
                                         <MenuItem key={category.path} value={category.name} primaryText={capitalize(category.name)} />
                                     ))}
                                 </SelectField>
                             )}
-                            <SubmitButton 
-                                dialogErrorOpen={this.state.dialogErrorOpen} 
-                                dialogErrorClose={this.toggleErrorDialog} 
+                            <SubmitButton
+                                dialogErrorOpen={this.state.dialogErrorOpen}
+                                dialogErrorClose={this.toggleErrorDialog}
                                 dialogSuccessOpen={this.state.dialogSuccessOpen}
                                 dialogSuccessClose={this.toggleSuccessDialog}
                                 afterSuccess={this.finished}
                                 submit={this.postSubmit} />
-                            <CancelButton 
+                            <CancelButton
                                 dialogOpen={this.state.dialogCancelOpen}
                                 dialogClose={this.toggleCancelDialog}
                                 buttonSubmit={this.cancelSubmit}
@@ -144,18 +144,18 @@ class PostForm extends Component{
     };
 };
 
-const mapStateToProps = ({categories, posts}, ownProps) => {
-    const {postId} = ownProps.match.params;
+const mapStateToProps = ({ categories, posts }, ownProps) => {
+    const { postId } = ownProps.match.params;
 
     return {
-        post: posts && posts.find( (post) => post.id === postId ),
+        post: posts && posts.find((post) => post.id === postId),
         categories
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    update(post){ dispatch(updatePost(post)); },
-    add(post){ dispatch(addPost(post)); }
+    update(post) { dispatch(updatePost(post)); },
+    add(post) { dispatch(addPost(post)); }
 });
-  
+
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
