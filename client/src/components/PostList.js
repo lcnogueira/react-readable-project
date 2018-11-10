@@ -1,9 +1,9 @@
 import React from 'react';
-import Post from './Post';
 import List, { ListItem } from 'material-ui/List';
-import Title from './utils/Title';
+import Post from './Post';
+import Title from './Title';
 import PostOrderControl from './PostOrderControl';
-import { AddPostFLoatingButton } from './utils/FloatingButtons';
+import { AddPostFLoatingButton } from './FloatingButtons';
 
 const PostList = ({ posts, title }) => (
     <div>

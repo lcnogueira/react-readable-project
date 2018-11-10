@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { fetchCommentsByPost, fetchPostById, addComment } from '../actions/index';
 import { connect } from 'react-redux';
 import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import CommentList from './CommentList';
-import { formatDate, sortBy } from '../utils/helper';
-import Title from './utils/Title';
-import { BackFloatingButton } from './utils/FloatingButtons';
-import PostActions from './PostActions';
-import CommentFormModal from './CommentFormModal';
 import { RaisedButton } from 'material-ui';
+import { formatDate, sortBy } from '../utils/helper';
+import Title from '../components/Title';
+import { BackFloatingButton } from '../components/FloatingButtons';
+import CommentFormModal from '../components/CommentFormModal';
+import CommentList from '../components/CommentList';
+import PostActions from '../components/PostActions';
 
 class PostDetails extends Component {
 
@@ -16,7 +16,7 @@ class PostDetails extends Component {
         commentModalOpen: false,
     };
 
-    toggleCommentModal = () => {this.setState({commentModalOpen: !this.state.commentModalOpen})};
+    toggleCommentModal = () => { this.setState({ commentModalOpen: !this.state.commentModalOpen }) };
 
     componentDidMount() {
         const { postId } = this.props.match.params;
@@ -28,7 +28,7 @@ class PostDetails extends Component {
         const { postId } = this.props.match.params;
         const { comments } = this.props;
         const nextComments = nextProps.comments;
-        if(comments.length !== nextComments.length){
+        if (comments.length !== nextComments.length) {
             this.props.fetchPostById(postId);
         }
     };
@@ -40,7 +40,7 @@ class PostDetails extends Component {
 
         return (
             <div>
-                <BackFloatingButton link={`/${category}`}/>
+                <BackFloatingButton link={`/${category}`} />
                 <Title title='Post Details' />
                 {post && (
                     <Card style={{ padding: 10, margin: 10 }}>
@@ -50,19 +50,19 @@ class PostDetails extends Component {
                         />
                         <CardText> {post.body} </CardText>
                         <CardText> Vote Score: {post.voteScore} </CardText>
-                        <PostActions post={post}/>
-                        <RaisedButton label='Add Comment' onClick={this.toggleCommentModal}/>
+                        <PostActions post={post} />
+                        <RaisedButton label='Add Comment' onClick={this.toggleCommentModal} />
                     </Card>
                 )}
                 {this.state.commentModalOpen && (
-                    <CommentFormModal 
+                    <CommentFormModal
                         dialogOpen={this.state.commentModalOpen}
                         dialogClose={this.toggleCommentModal}
                         post={post}
                         operation={this.props.addComment}
                     />
                 )}
-                {post && comments.length>0 && (
+                {post && comments.length > 0 && (
                     <div>
                         <Card style={{ padding: 15, margin: 15 }}>
                             <CardHeader title={`${post.commentCount} comment(s)`} />
@@ -75,14 +75,14 @@ class PostDetails extends Component {
     };
 };
 
-const mapStateToProps = ({posts, comments, commentsOrder}) => ({
+const mapStateToProps = ({ posts, comments, commentsOrder }) => ({
     post: posts && posts[0],
     comments: sortBy(comments && comments.slice(), commentsOrder)
-});         
+});
 
 const mapDispatchToProps = dispatch => ({
-    fetchCommentsByPost(postId){ dispatch(fetchCommentsByPost(postId)); },
-    fetchPostById(postId){ dispatch(fetchPostById(postId)); },
+    fetchCommentsByPost(postId) { dispatch(fetchCommentsByPost(postId)); },
+    fetchPostById(postId) { dispatch(fetchPostById(postId)); },
     addComment(comment) { dispatch(addComment(comment)); },
 });
 

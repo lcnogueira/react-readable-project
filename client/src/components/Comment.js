@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import { IconButton } from 'material-ui';
 import Delete from 'material-ui/svg-icons/action/delete';
@@ -8,8 +9,7 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down';
 import { VOTE_UP, VOTE_DOWN } from '../utils/voteTypes';
 import { formatDate } from '../utils/helper';
 import { voteComment, deleteComment, fetchPostById, updateComment } from '../actions';
-import { connect } from 'react-redux';
-import DeleteDialog from './utils/DeleteDialog';
+import DeleteDialog from './DeleteDialog';
 import CommentFormModal from './CommentFormModal';
 
 class Comment extends Component {
@@ -19,32 +19,32 @@ class Comment extends Component {
         commentModalOpen: false,
     };
 
-    toggleCommentModal = () => {this.setState({commentModalOpen: !this.state.commentModalOpen})};
+    toggleCommentModal = () => { this.setState({ commentModalOpen: !this.state.commentModalOpen }) };
 
-    toggleDeleteDialog = () => {this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen })};
-    
+    toggleDeleteDialog = () => { this.setState({ deleteDialogOpen: !this.state.deleteDialogOpen }) };
+
     handleDelete = event => {
         event.preventDefault();
         this.toggleDeleteDialog();
     };
-    
-    deleteComment = () => { 
-        this.props.delete(this.props.comment); 
+
+    deleteComment = () => {
+        this.props.delete(this.props.comment);
         this.props.fetchPostById(this.props.comment.parentId);
     };
 
     handleCommentVote = (comment, option) => { this.props.vote(comment.id, option) };
 
-    render(){
+    render() {
         const { comment } = this.props;
 
         return (
             <div>
-                <Card style={{padding: 5, margin: 5}}>
+                <Card style={{ padding: 5, margin: 5 }}>
                     <CardTitle
                         subtitle={'Sent: ' + formatDate(comment.timestamp) + ' - Author: ' + comment.author}
                     />
-                    <CardText style={{fontSize: '1.2em'}}>
+                    <CardText style={{ fontSize: '1.2em' }}>
                         {comment.body}
                     </CardText>
                     <CardText>
@@ -63,7 +63,7 @@ class Comment extends Component {
                     yesButton={this.deleteComment}
                 />
                 {this.state.commentModalOpen && (
-                    <CommentFormModal 
+                    <CommentFormModal
                         dialogOpen={this.state.commentModalOpen}
                         dialogClose={this.toggleCommentModal}
                         comment={comment}
@@ -78,8 +78,8 @@ class Comment extends Component {
 const mapDispatchToProps = dispatch => ({
     vote(comment, option) { dispatch(voteComment(comment, option)); },
     delete(comment) { dispatch(deleteComment(comment)); },
-    fetchPostById(postId){ dispatch(fetchPostById(postId)); },
+    fetchPostById(postId) { dispatch(fetchPostById(postId)); },
     update(comment) { dispatch(updateComment(comment)); },
 });
 
-export default connect(null,mapDispatchToProps)(Comment);
+export default connect(null, mapDispatchToProps)(Comment);

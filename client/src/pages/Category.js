@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostsByCategory } from '../actions';
-import PostList from './PostList';
+import PostList from '../components/PostList';
 import { capitalize, sortBy } from '../utils/helper';
 
 class Category extends Component {

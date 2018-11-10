@@ -11,17 +11,17 @@ export const getCategories = () =>
     .then(res => res.json())
     .then(data => data.categories);
 
-export const getPosts = () => 
-  fetch(`${url}/posts`,{ headers })
-  .then( res => res.json());
+export const getPosts = () =>
+  fetch(`${url}/posts`, { headers })
+    .then(res => res.json());
 
 export const getPostsByCategory = category =>
   fetch(`${url}/${category}/posts`, { headers })
-  .then(res => res.json());
+    .then(res => res.json());
 
-export const getPostById = id => 
+export const getPostById = id =>
   fetch(`${url}/posts/${id}`, { headers })
-  .then(res => res.json());
+    .then(res => res.json());
 
 export const addPost = post =>
   fetch(`${url}/posts`, {
@@ -52,7 +52,7 @@ export const votePost = (id, option) =>
 
 export const getCommentsByPost = id =>
   fetch(`${url}/posts/${id}/comments`, { headers })
-  .then(res => res.json());
+    .then(res => res.json());
 
 export const deleteComment = id =>
   fetch(`${url}/comments/${id}`, {
